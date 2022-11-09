@@ -19,19 +19,19 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.blue,
           primaryColor: Colors.blue,
           focusColor: Colors.blue),
-      home: Homepage(),
+      home: MyRegister(),
     );
   }
 }
 
-class Homepage extends StatefulWidget {
-  const Homepage({Key? key}) : super(key: key);
+class MyRegister extends StatefulWidget {
+  const MyRegister({Key? key}) : super(key: key);
 
   @override
-  State<Homepage> createState() => _HomepageState();
+  State<MyRegister> createState() => _MyRegisterState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _MyRegisterState extends State<MyRegister> {
   bool maleSelected = false;
 
   bool femaleSelected = false;
@@ -43,14 +43,14 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-            Color.fromARGB(255, 68, 76, 137),
-            Color.fromARGB(255, 11, 9, 32)
-          ])),
+      width: MediaQuery.of(context).size.width,
+      decoration: new BoxDecoration(
+        gradient: new LinearGradient(
+          begin: FractionalOffset.topLeft,
+          end: FractionalOffset.bottomRight,
+          colors: [Color.fromARGB(250, 175, 1, 113), Colors.purpleAccent],
+        ),
+      ),
       child: Scaffold(
         backgroundColor: (Colors.transparent),
         body: SafeArea(
@@ -61,8 +61,14 @@ class _HomepageState extends State<Homepage> {
                 Column(
                   children: [
                     Container(
-                        child: new Image.asset("./img/logo no bg.png",
-                            width: 200, height: 200)),
+                      child: Icon(
+                        Icons.app_registration_rounded,
+                        size: 60,
+                        color: Colors.white,
+                      ),
+                      // child: new Image.asset("./img/logo no bg.png",
+                      //     width: 155, height: 155)
+                    ),
                   ],
                 ),
                 Text(
@@ -82,21 +88,21 @@ class _HomepageState extends State<Homepage> {
                         prefixIconConstraints: BoxConstraints(minWidth: 45),
                         prefixIcon: Icon(
                           Icons.person,
-                          color: Colors.white70,
+                          color: Colors.white,
                           size: 22,
                         ),
                         border: InputBorder.none,
                         hintText: 'Masukkan Username',
                         hintStyle:
-                            TextStyle(color: Colors.white60, fontSize: 14.5),
+                            TextStyle(color: Colors.white, fontSize: 14.5),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12)
                                 .copyWith(bottomRight: Radius.circular(12)),
-                            borderSide: BorderSide(color: Colors.white38)),
+                            borderSide: BorderSide(color: Colors.white)),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12)
                                 .copyWith(bottomRight: Radius.circular(12)),
-                            borderSide: BorderSide(color: Colors.white70))),
+                            borderSide: BorderSide(color: Colors.white))),
                   ),
                 ),
                 Padding(
@@ -108,21 +114,21 @@ class _HomepageState extends State<Homepage> {
                         prefixIconConstraints: BoxConstraints(minWidth: 45),
                         prefixIcon: Icon(
                           Icons.email,
-                          color: Colors.white70,
+                          color: Colors.white,
                           size: 22,
                         ),
                         border: InputBorder.none,
                         hintText: 'Masukkan Email',
                         hintStyle:
-                            TextStyle(color: Colors.white60, fontSize: 14.5),
+                            TextStyle(color: Colors.white, fontSize: 14.5),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12)
                                 .copyWith(bottomRight: Radius.circular(12)),
-                            borderSide: BorderSide(color: Colors.white38)),
+                            borderSide: BorderSide(color: Colors.white)),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12)
                                 .copyWith(bottomRight: Radius.circular(12)),
-                            borderSide: BorderSide(color: Colors.white70))),
+                            borderSide: BorderSide(color: Colors.white))),
                   ),
                 ),
                 Padding(
@@ -135,7 +141,7 @@ class _HomepageState extends State<Homepage> {
                         prefixIconConstraints: BoxConstraints(minWidth: 45),
                         prefixIcon: Icon(
                           Icons.lock,
-                          color: Colors.white70,
+                          color: Colors.white,
                           size: 22,
                         ),
                         suffixIconConstraints:
@@ -150,22 +156,22 @@ class _HomepageState extends State<Homepage> {
                             isPasswordVisible
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: Colors.white70,
+                            color: Colors.white,
                             size: 22,
                           ),
                         ),
                         border: InputBorder.none,
                         hintText: 'Masukkan Password',
                         hintStyle:
-                            TextStyle(color: Colors.white60, fontSize: 14.5),
+                            TextStyle(color: Colors.white, fontSize: 14.5),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12)
                                 .copyWith(bottomRight: Radius.circular(12)),
-                            borderSide: BorderSide(color: Colors.white38)),
+                            borderSide: BorderSide(color: Colors.white)),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12)
                                 .copyWith(bottomRight: Radius.circular(12)),
-                            borderSide: BorderSide(color: Colors.white70))),
+                            borderSide: BorderSide(color: Colors.white))),
                   ),
                 ),
                 Padding(
@@ -178,7 +184,7 @@ class _HomepageState extends State<Homepage> {
                         prefixIconConstraints: BoxConstraints(minWidth: 45),
                         prefixIcon: Icon(
                           Icons.lock,
-                          color: Colors.white70,
+                          color: Colors.white,
                           size: 22,
                         ),
                         suffixIconConstraints:
@@ -194,22 +200,22 @@ class _HomepageState extends State<Homepage> {
                             isConfirmPasswordVisible
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: Colors.white70,
+                            color: Colors.white,
                             size: 22,
                           ),
                         ),
                         border: InputBorder.none,
                         hintText: 'Konfirmasi Password',
                         hintStyle:
-                            TextStyle(color: Colors.white60, fontSize: 14.5),
+                            TextStyle(color: Colors.white, fontSize: 14.5),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12)
                                 .copyWith(bottomRight: Radius.circular(12)),
-                            borderSide: BorderSide(color: Colors.white38)),
+                            borderSide: BorderSide(color: Colors.white)),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12)
                                 .copyWith(bottomRight: Radius.circular(12)),
-                            borderSide: BorderSide(color: Colors.white70))),
+                            borderSide: BorderSide(color: Colors.white))),
                   ),
                 ),
                 SizedBox(
@@ -241,12 +247,12 @@ class _HomepageState extends State<Homepage> {
                                       margin: EdgeInsets.all(4),
                                       decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: Colors.white70),
+                                          color: Colors.white),
                                     )
                                   : SizedBox()),
                           Text('Laki-Laki',
                               style: TextStyle(
-                                  color: Colors.white70, fontSize: 14.5))
+                                  color: Colors.white, fontSize: 14.5))
                         ],
                       ),
                     ),
@@ -273,12 +279,12 @@ class _HomepageState extends State<Homepage> {
                                       margin: EdgeInsets.all(4),
                                       decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: Colors.white70),
+                                          color: Colors.white),
                                     )
                                   : SizedBox()),
                           Text('Perempuan',
                               style: TextStyle(
-                                  color: Colors.white70, fontSize: 14.5))
+                                  color: Colors.white, fontSize: 14.5))
                         ],
                       ),
                     )
@@ -304,8 +310,8 @@ class _HomepageState extends State<Homepage> {
                         borderRadius: BorderRadius.circular(12)
                             .copyWith(bottomRight: Radius.circular(12)),
                         gradient: LinearGradient(colors: [
-                          Color.fromARGB(255, 86, 73, 130),
-                          Color.fromARGB(255, 63, 82, 168)
+                          Color.fromARGB(180, 17, 255, 0),
+                          Color.fromARGB(180, 17, 255, 0)
                         ])),
                     child: Text('Register',
                         style: TextStyle(
@@ -332,7 +338,7 @@ class _HomepageState extends State<Homepage> {
                       },
                       child: Text(" Login",
                           style: TextStyle(
-                              color: Color.fromARGB(255, 104, 122, 202),
+                              color: Colors.yellow,
                               fontWeight: FontWeight.bold)),
                     )
                   ],

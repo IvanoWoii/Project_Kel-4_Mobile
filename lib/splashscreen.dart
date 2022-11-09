@@ -28,7 +28,7 @@ class _SplahScreenState extends State<SplahScreen> {
           gradient: new LinearGradient(
             begin: FractionalOffset.topLeft,
             end: FractionalOffset.bottomRight,
-            colors: [Colors.lightBlueAccent, Colors.deepPurple],
+            colors: [Color.fromARGB(250, 175, 1, 113), Colors.purpleAccent],
           ),
         ),
         child: Column(
