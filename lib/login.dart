@@ -1,3 +1,4 @@
+import 'package:app_pron/register.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -92,7 +93,7 @@ class login extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: Color.fromARGB(180, 17, 255, 0),
                       borderRadius: BorderRadius.circular(12)),
                   child: Center(
                       child: Text(
@@ -113,9 +114,16 @@ class login extends StatelessWidget {
                     "Belum punya akun?",
                     style: TextStyle(color: Colors.white),
                   ),
-                  Text(" Register",
-                      style: TextStyle(
-                          color: Colors.yellow, fontWeight: FontWeight.bold))
+                  TextButton(
+                    onPressed: () {
+                      Route route =
+                          MaterialPageRoute(builder: (context) => MyRegister());
+                      Navigator.push(context, route);
+                    },
+                    child: Text(" Register",
+                        style: TextStyle(
+                            color: Colors.yellow, fontWeight: FontWeight.bold)),
+                  ),
                 ],
               ),
             ],
