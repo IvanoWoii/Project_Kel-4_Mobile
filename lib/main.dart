@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "test",
       debugShowCheckedModeBanner: false,
-      home: MyRegister(),
+      home: SplahScreen(),
     );
   }
 }
