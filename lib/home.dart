@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.chat,
+                          Icons.favorite,
                           color: currentTab == 2 ? Colors.purple : Colors.grey,
                         ),
                         Text(
