@@ -64,7 +64,9 @@ class login extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 20.0),
                     child: TextField(
                       decoration: InputDecoration(
-                          border: InputBorder.none, hintText: 'username'),
+                          border: InputBorder.none,
+                          hintText: 'username',
+                          prefixIcon: Icon(Icons.people)),
                     ),
                   ),
                 ),
