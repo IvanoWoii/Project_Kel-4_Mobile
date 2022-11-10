@@ -1,3 +1,4 @@
+import 'package:app_pron/home.dart';
 import 'package:app_pron/register.dart';
 import 'package:flutter/material.dart';
 import 'splashscreen.dart';
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "test",
       debugShowCheckedModeBanner: false,
-      home: SplahScreen(),
+      home: Home(),
     );
   }
 }

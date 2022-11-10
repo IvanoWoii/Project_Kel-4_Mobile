@@ -1,186 +1,135 @@
 import 'package:flutter/material.dart';
 
-class Profile extends StatefulWidget {
-  @override
-  State<Profile> createState() => _ProfileState();
-}
+class Profile extends StatelessWidget {
+  const Profile({super.key});
 
-class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(249, 131, 69, 137),
-          centerTitle: true,
-          title: const Text(
-            'Profile',
-            style: TextStyle(
-                fontSize: 17, color: Colors.white, letterSpacing: 0.53),
-          ),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(30),
-            ),
-          ),
-          leading: InkWell(
-            onTap: () {},
-            child: const Icon(
-              Icons.arrow_back_rounded,
-              color: Colors.white,
-            ),
-          ),
-          actions: [
-            InkWell(
-              onTap: () {},
-              child: const Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Icon(
-                  Icons.settings,
-                  size: 20,
-                ),
-              ),
-            ),
-          ],
-          bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(110.0),
-              child: Container(
-                padding: const EdgeInsets.only(left: 30, bottom: 20),
+      appBar: PreferredSize(
+          child: SafeArea(
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
-                  children: [
-                    Stack(
-                      children: [
-                        const CircleAvatar(
-                          radius: 32,
-                          backgroundColor: Colors.white,
-                          child: Icon(Icons.person_outline_rounded),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            'user123456',
-                            style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white),
-                          ),
-                          Text(
-                            'user123456@gmail.com',
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Text(
-                            '+62 812 3456 7890',
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Icon(Icons.arrow_back,
+                        size: 20.0, color: Colors.purpleAccent[700]),
+                    Text('P R O F I L E',
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.purpleAccent[700])),
+                    Icon(Icons.settings,
+                        size: 20.0, color: Colors.purpleAccent[700]),
                   ],
                 ),
-              )),
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            height: size.height,
-            width: size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: size.height * .7,
-                  width: size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      ProfileWidget(
-                        icon: Icons.person,
-                        title: 'Profile Settings',
-                      ),
-                      ProfileWidget(
-                        icon: Icons.settings,
-                        title: 'Settings',
-                      ),
-                      ProfileWidget(
-                        icon: Icons.notifications,
-                        title: 'Notifications',
-                      ),
-                      ProfileWidget(
-                        icon: Icons.chat,
-                        title: 'FAQs',
-                      ),
-                      ProfileWidget(
-                        icon: Icons.share,
-                        title: 'Share',
-                      ),
-                      ProfileWidget(
-                        icon: Icons.logout,
-                        title: 'Log Out',
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ));
-  }
-}
-
-class ProfileWidget extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  const ProfileWidget({
-    Key? key,
-    required this.icon,
-    required this.title,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 18),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          preferredSize: Size.fromHeight(100)),
+      body: ListView(
+        physics: NeverScrollableScrollPhysics(),
         children: [
-          Row(
-            children: [
-              Icon(
-                icon,
-                color: Colors.black.withOpacity(.5),
-                size: 24,
+          SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: 65,
+              color: Colors.transparent,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.grey,
+                    child: Icon(Icons.person_outline_rounded),
+                  ),
+                ],
               ),
-              const SizedBox(
-                width: 16,
-              ),
-              Text(
-                title,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
+            ),
           ),
-          Icon(
-            Icons.arrow_forward_ios,
-            color: Colors.black.withOpacity(.4),
-            size: 16,
-          )
+          SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              height: 500,
+              color: Colors.transparent,
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: buildTitle(),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
+
+  Widget buildTitle() => Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            'Profile Information',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Colors.purpleAccent[700],
+            ),
+          ),
+          SizedBox(height: 5),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            child: TextField(
+              decoration: InputDecoration(
+                  border: UnderlineInputBorder(), hintText: 'Username'),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            child: TextField(
+              decoration: InputDecoration(
+                  border: UnderlineInputBorder(), hintText: 'Nama Lengkap'),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            child: TextField(
+              decoration: InputDecoration(
+                  border: UnderlineInputBorder(), hintText: 'Email'),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            child: TextField(
+              decoration: InputDecoration(
+                  border: UnderlineInputBorder(), hintText: 'Alamat'),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            child: TextField(
+              decoration: InputDecoration(
+                  border: UnderlineInputBorder(), hintText: 'No Hp'),
+            ),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            child: Text('Edit Profile'),
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+                primary: Colors.purpleAccent[900],
+                padding: EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+                textStyle: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                )),
+          ),
+        ],
+      );
 }
