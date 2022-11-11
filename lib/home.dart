@@ -37,6 +37,7 @@ class _HomeState extends State<Home> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Padding(padding: EdgeInsets.all(15.0)),
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
@@ -62,6 +63,7 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
+                  Padding(padding: EdgeInsets.all(15.0)),
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
@@ -104,11 +106,11 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.favorite,
+                          Icons.category_rounded,
                           color: currentTab == 2 ? Colors.purple : Colors.grey,
                         ),
                         Text(
-                          'Wishlist',
+                          'Kategori',
                           style: TextStyle(
                               color: currentTab == 2
                                   ? Colors.purple
@@ -117,6 +119,7 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
+                  Padding(padding: EdgeInsets.all(15.0)),
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
@@ -142,6 +145,7 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
+                  Padding(padding: EdgeInsets.all(15.0)),
                 ],
               ),
             ],

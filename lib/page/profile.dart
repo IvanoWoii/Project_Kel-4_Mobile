@@ -75,7 +75,7 @@ class Profile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
-            'Profile Information',
+            'Informasi Profiles',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,
