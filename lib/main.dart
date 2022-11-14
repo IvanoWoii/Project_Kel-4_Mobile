@@ -1,4 +1,5 @@
 import 'package:app_pron/home.dart';
+import 'package:app_pron/page/mainPrint.dart';
 import 'package:app_pron/register.dart';
 import 'package:flutter/material.dart';
 import 'splashscreen.dart';
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "APP PRON",
       debugShowCheckedModeBanner: false,
-      home: login(),
+      home: mainPrint(),
     );
   }
 }

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class HeaderWidget extends StatefulWidget {
   final double _height;
   final bool _showImg;
-  final IconData _img;
+  final Image _img;
 
   const HeaderWidget(this._height, this._showImg, this._img, {Key? key})
       : super(key: key);
@@ -18,7 +18,7 @@ class HeaderWidget extends StatefulWidget {
 class _HeaderWidgetState extends State<HeaderWidget> {
   double _height;
   bool _showImg;
-  IconData _img;
+  Image _img;
 
   _HeaderWidgetState(this._height, this._showImg, this._img);
 

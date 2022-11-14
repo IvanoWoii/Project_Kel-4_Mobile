@@ -1,3 +1,4 @@
+import 'package:app_pron/page/mainPrint.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pron/page/dashboard.dart';
 import 'package:app_pron/page/profile.dart';
@@ -24,7 +25,10 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.print),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => mainPrint()));
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(

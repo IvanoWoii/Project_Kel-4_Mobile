@@ -19,8 +19,8 @@ class login extends StatelessWidget {
           children: [
             Container(
               height: _headerHeight,
-              child: HeaderWidget(_headerHeight, true,
-                  Icons.login_rounded), //let's create a common header widget
+              child: HeaderWidget(
+                  _headerHeight, true, Image.asset("logo no bg.png")),
             ),
             SafeArea(
               child: Container(
