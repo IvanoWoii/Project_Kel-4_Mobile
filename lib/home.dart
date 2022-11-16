@@ -1,4 +1,4 @@
-import 'package:app_pron/page/mainPrint.dart';
+import 'package:app_pron/page/mainPrint2.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pron/page/dashboard.dart';
 import 'package:app_pron/page/profile.dart';
@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
         child: Icon(Icons.print),
         onPressed: () {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => mainPrint()));
+              context, MaterialPageRoute(builder: (context) => MyPrint2()));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
