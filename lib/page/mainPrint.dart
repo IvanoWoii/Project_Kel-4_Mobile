@@ -20,9 +20,10 @@ class _mainPrintState extends State<mainPrint>
   PlatformFile? _platformFile;
 
   selectFile() async {
-    final file = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['png', 'jpg', 'jpeg', 'pdf']);
+    final file = await FilePicker.platform.pickFiles(allowMultiple: true
+        // type: FileType.custom,
+        // allowedExtensions: ['png', 'jpg', 'jpeg', 'pdf', 'docx']
+        );
 
     if (file != null) {
       setState(() {
@@ -75,7 +76,7 @@ class _mainPrintState extends State<mainPrint>
               height: 10,
             ),
             Text(
-              'File should be jpg, png, pdf',
+              'File should be jpg, png, pdf, docx',
               style: TextStyle(fontSize: 15, color: Colors.grey.shade500),
             ),
             SizedBox(
