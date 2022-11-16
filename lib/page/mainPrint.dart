@@ -18,8 +18,6 @@ class _mainPrintState extends State<mainPrint>
 
   File? _file;
   PlatformFile? _platformFile;
-  PlatformFile? _platformFile2;
-
   selectFile() async {
     final file = await FilePicker.platform.pickFiles(allowMultiple: true
         // type: FileType.custom,
@@ -205,94 +203,7 @@ class _mainPrintState extends State<mainPrint>
                         SizedBox(
                           height: 20,
                         ),
-                      ],
-                    ))
-                : Container(),
-            SizedBox(height: 20),
-            _platformFile2 != null
-                ? Container(
-                    padding: EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Selected File',
-                          style: TextStyle(
-                            color: Colors.grey.shade400,
-                            fontSize: 15,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                            padding: EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.shade200,
-                                    offset: Offset(0, 1),
-                                    blurRadius: 3,
-                                    spreadRadius: 2,
-                                  )
-                                ]),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.file(
-                                      _file!,
-                                      width: 70,
-                                    )),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        _platformFile2!.name,
-                                        style: TextStyle(
-                                            fontSize: 13, color: Colors.black),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        '${(_platformFile2!.size / 1024).ceil()} KB',
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            color: Colors.grey.shade500),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Container(
-                                          height: 5,
-                                          clipBehavior: Clip.hardEdge,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            color: Colors.blue.shade50,
-                                          ),
-                                          child: LinearProgressIndicator(
-                                            value: loadingController.value,
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                              ],
-                            )),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        
                       ],
                     ))
                 : Container(),
