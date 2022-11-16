@@ -48,7 +48,10 @@ class _MyRegisterState extends State<MyRegister> {
         gradient: new LinearGradient(
           begin: FractionalOffset.topLeft,
           end: FractionalOffset.bottomRight,
-          colors: [Color.fromARGB(250, 175, 1, 113), Colors.purpleAccent],
+          colors: [
+            Color.fromARGB(250, 74, 35, 78),
+            Color.fromARGB(250, 155, 11, 203),
+          ],
         ),
       ),
       child: Scaffold(
