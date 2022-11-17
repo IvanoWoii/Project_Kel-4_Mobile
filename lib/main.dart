@@ -4,6 +4,7 @@ import 'package:app_pron/register.dart';
 import 'package:flutter/material.dart';
 import 'splashscreen.dart';
 import 'login.dart';
+import 'package:app_pron/lupa_password_page/reset_password.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "APP PRON",
       debugShowCheckedModeBanner: false,
-      home: MyPrint2(),
+      home: ResetPassword(),
     );
   }
 }

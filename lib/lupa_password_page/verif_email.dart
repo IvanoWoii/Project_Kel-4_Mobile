@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:testing_app/lupa_password_page/create_password.dart';
-import 'package:testing_app/lupa_password_page/email_add.dart';
+import 'package:app_pron/lupa_password_page/create_password.dart';
+import 'package:app_pron/lupa_password_page/email_add.dart';
 
 class VerifEmail extends StatefulWidget {
   const VerifEmail({super.key});
