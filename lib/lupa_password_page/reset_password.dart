@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:app_pron/lupa_password_page/email_add.dart';
+import 'package:app_pron/login.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});
@@ -23,7 +24,10 @@ class _ResetPasswordState extends State<ResetPassword> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back,
               size: 20.0, color: Colors.purpleAccent[700]),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => login()));
+          },
         ),
       ),
       body: PageView.builder(

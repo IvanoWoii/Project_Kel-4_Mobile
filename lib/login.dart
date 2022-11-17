@@ -1,6 +1,7 @@
 import 'package:app_pron/page/profile.dart';
 import 'package:app_pron/pages_index/headerWidget.dart';
 import 'package:app_pron/pages_index/theme_helper.dart';
+import 'package:app_pron/lupa_password_page/reset_password.dart';
 import 'package:app_pron/register.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,12 @@ class login extends StatelessWidget {
                                 alignment: Alignment.topRight,
                                 child: GestureDetector(
                                   onTap: () {
-                                    // Navigator.push( context, MaterialPageRoute( builder: (context) => ForgotPasswordPage()), );
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ResetPassword()),
+                                    );
                                   },
                                   child: Text(
                                     "Lupa Password?",
