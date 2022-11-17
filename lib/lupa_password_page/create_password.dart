@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:app_pron/lupa_password_page/verif_email.dart';
 
 class CreatePassword extends StatefulWidget {
   const CreatePassword({super.key});
@@ -24,7 +25,10 @@ class _CreatePasswordState extends State<CreatePassword> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back,
               size: 20.0, color: Colors.purpleAccent[700]),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => VerifEmail()));
+          },
         ),
       ),
       body: PageView.builder(

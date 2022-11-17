@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:app_pron/lupa_password_page/verif_email.dart';
+import 'package:app_pron/lupa_password_page/reset_password.dart';
 
 class EmailAdd extends StatefulWidget {
   const EmailAdd({super.key});
@@ -25,7 +26,10 @@ class _EmailAddState extends State<EmailAdd> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back,
               size: 20.0, color: Colors.purpleAccent[700]),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => ResetPassword()));
+          },
         ),
       ),
       body: PageView.builder(

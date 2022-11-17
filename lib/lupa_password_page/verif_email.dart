@@ -24,7 +24,10 @@ class _VerifEmailState extends State<VerifEmail> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back,
               size: 20.0, color: Colors.purpleAccent[700]),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => EmailAdd()));
+          },
         ),
       ),
       body: PageView.builder(
