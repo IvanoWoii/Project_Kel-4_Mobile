@@ -1,3 +1,4 @@
+import 'package:app_pron/home.dart';
 import 'package:app_pron/page/profile.dart';
 import 'package:app_pron/pages_index/headerWidget.dart';
 import 'package:app_pron/pages_index/theme_helper.dart';
@@ -99,10 +100,10 @@ class login extends StatelessWidget {
                                     ),
                                   ),
                                   onPressed: () {
-                                    // Navigator.pushReplacement(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) => Profile()));
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Home()));
                                   },
                                 ),
                               ),
