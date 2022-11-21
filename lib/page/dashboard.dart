@@ -42,23 +42,6 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ],
                 ),
-                Text(
-                  "List Barang & Harga",
-                  style: GoogleFonts.openSans(
-                      textStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600)),
-                ),
-                // IconButton(
-                //   alignment: Alignment.topCenter,
-                //   icon: Icon(
-                //     Icons.notifications,
-                //     size: 24,
-                //     color: Colors.white,
-                //   ),
-                //   onPressed: () {},
-                // ),
               ],
             ),
           ),

@@ -1,4 +1,6 @@
+import 'package:app_pron/login.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -14,15 +16,61 @@ class Profile extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Icon(Icons.arrow_back,
-                        size: 20.0, color: Colors.purpleAccent[700]),
-                    Text('P R O F I L E',
-                        style: TextStyle(
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.purpleAccent[700])),
-                    Icon(Icons.settings,
-                        size: 20.0, color: Colors.purpleAccent[700]),
+                    Text('PROFILE',
+                        style: GoogleFonts.openSans(
+                          textStyle: TextStyle(
+                              fontSize: 25.0,
+                              color: Colors.purple,
+                              fontWeight: FontWeight.bold),
+                        )),
+                    IconButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text("Logout"),
+                                    content: Text("Apalah Anda Ingin Logout?"),
+                                    actions: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 40.0, left: 40.0),
+                                        child: MaterialButton(
+                                          padding: EdgeInsets.all(8.0),
+                                          color: Colors.redAccent,
+                                          onPressed: () {
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        login()));
+                                          },
+                                          child: Text("iya",
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 40.0, left: 40.0),
+                                        child: MaterialButton(
+                                          padding: EdgeInsets.all(8.0),
+                                          color: Colors.green,
+                                          onPressed: () {
+                                            Navigator.pop(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Profile()));
+                                          },
+                                          child: Text("Tidak",
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                        ),
+                                      ),
+                                    ],
+                                  ));
+                        },
+                        icon: Icon(Icons.logout_rounded)),
                   ],
                 ),
               ),

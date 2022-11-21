@@ -29,6 +29,7 @@ class _HomeState extends State<Home> {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => MyPrint2()));
         },
+        backgroundColor: Colors.purple,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
