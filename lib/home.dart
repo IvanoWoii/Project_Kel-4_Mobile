@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:app_pron/page/dashboard.dart';
 import 'package:app_pron/page/profile.dart';
 import 'package:app_pron/page/riwayat.dart';
-import 'package:app_pron/page/wishlist.dart';
+import 'package:app_pron/page/kategori.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int currentTab = 0;
-  final List<Widget> screens = [Dashboard(), Riwayat(), Profile(), Wishlist()];
+  final List<Widget> screens = [Dashboard(), Riwayat(), Profile(), Kategori()];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = Dashboard();
   @override
@@ -103,7 +103,7 @@ class _HomeState extends State<Home> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = Wishlist();
+                        currentScreen = Kategori();
                         currentTab = 2;
                       });
                     },
