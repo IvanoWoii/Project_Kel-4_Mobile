@@ -1,9 +1,11 @@
 import 'package:app_pron/page/mainPrint2.dart';
+import 'package:app_pron/page/notifMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pron/page/dashboard.dart';
 import 'package:app_pron/page/profile.dart';
 import 'package:app_pron/page/riwayat.dart';
 import 'package:app_pron/page/kategori.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -23,13 +25,32 @@ class _HomeState extends State<Home> {
         child: currentScreen,
         bucket: bucket,
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.print),
-        onPressed: () {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => MyPrint2()));
-        },
+      floatingActionButton: SpeedDial(
+        icon: Icons.print_outlined,
         backgroundColor: Colors.purple,
+        overlayColor: Colors.black,
+        overlayOpacity: 0.4,
+        children: [
+          SpeedDialChild(
+              onTap: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => MyPrint2()));
+              },
+              child: Icon(Icons.print, color: Colors.white),
+              label: "print",
+              backgroundColor: Colors.black),
+          SpeedDialChild(
+              onTap: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => NotifMenu()));
+              },
+              child: Icon(
+                Icons.notifications,
+                color: Colors.white,
+              ),
+              label: "notif",
+              backgroundColor: Colors.black),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(

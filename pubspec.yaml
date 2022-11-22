@@ -39,6 +39,7 @@ dependencies:
   hexcolor: ^3.0.1
   lottie: ^2.0.0
   open_file: ^3.2.1
+  flutter_speed_dial: ^6.2.0
 
 dev_dependencies:
 
