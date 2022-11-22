@@ -18,10 +18,10 @@ class _DashboardState extends State<Dashboard> {
           Padding(
             padding: EdgeInsets.only(left: 12, right: 16),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
                       "Dashboard APP PRON",

@@ -221,77 +221,31 @@ class _MyRegisterState extends State<MyRegister> {
                             borderSide: BorderSide(color: Colors.white))),
                   ),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          maleSelected = true;
-
-                          femaleSelected = false;
-                        });
-                      },
-                      child: Row(
-                        children: [
-                          Container(
-                              height: 20,
-                              width: 20,
-                              alignment: Alignment.center,
-                              margin: EdgeInsets.only(right: 10),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.white60)),
-                              child: maleSelected
-                                  ? Container(
-                                      margin: EdgeInsets.all(4),
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.white),
-                                    )
-                                  : SizedBox()),
-                          Text('Laki-Laki',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 14.5))
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          femaleSelected = true;
-
-                          maleSelected = false;
-                        });
-                      },
-                      child: Row(
-                        children: [
-                          Container(
-                              height: 20,
-                              width: 20,
-                              alignment: Alignment.center,
-                              margin: EdgeInsets.only(right: 10),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.white60)),
-                              child: femaleSelected
-                                  ? Container(
-                                      margin: EdgeInsets.all(4),
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.white),
-                                    )
-                                  : SizedBox()),
-                          Text('Perempuan',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 14.5))
-                        ],
-                      ),
-                    )
-                  ],
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30).copyWith(bottom: 10),
+                  child: TextField(
+                    style: TextStyle(color: Colors.white, fontSize: 14.5),
+                    decoration: InputDecoration(
+                        prefixIconConstraints: BoxConstraints(minWidth: 45),
+                        prefixIcon: Icon(
+                          Icons.phone,
+                          color: Colors.white,
+                          size: 22,
+                        ),
+                        border: InputBorder.none,
+                        hintText: 'Masukkan No hp',
+                        hintStyle:
+                            TextStyle(color: Colors.white, fontSize: 14.5),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12)
+                                .copyWith(bottomRight: Radius.circular(12)),
+                            borderSide: BorderSide(color: Colors.white)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12)
+                                .copyWith(bottomRight: Radius.circular(12)),
+                            borderSide: BorderSide(color: Colors.white))),
+                  ),
                 ),
                 SizedBox(
                   height: 20,
