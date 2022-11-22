@@ -17,10 +17,13 @@ class _HomeState extends State<Home> {
   final List<Widget> screens = [Dashboard(), Riwayat(), Profile(), Kategori()];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = Dashboard();
+
+  final isDialOpen = ValueNotifier(false);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
+      backgroundColor: Colors.purple.shade300,
       body: PageStorage(
         child: currentScreen,
         bucket: bucket,
@@ -30,6 +33,9 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.purple,
         overlayColor: Colors.black,
         overlayOpacity: 0.4,
+        spacing: 12,
+        spaceBetweenChildren: 12,
+        openCloseDial: isDialOpen,
         children: [
           SpeedDialChild(
               onTap: () {
