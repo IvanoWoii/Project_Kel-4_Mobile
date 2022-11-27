@@ -86,27 +86,6 @@ class KertasPages extends StatelessWidget {
                     textStyle:
                         TextStyle(color: Color(0xFF575E67), fontSize: 14.0)),
               ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Container(
-                  color: Color(0xFFEBEBEB),
-                  height: 1.0,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 5.0, right: 5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      "(Informasi produk)",
-                      style: GoogleFonts.openSans(
-                          textStyle:
-                              TextStyle(color: Colors.black, fontSize: 10)),
-                    )
-                  ],
-                ),
-              ),
             ],
           ),
         ),

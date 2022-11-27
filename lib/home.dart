@@ -1,5 +1,4 @@
 import 'package:app_pron/page/mainPrint2.dart';
-import 'package:app_pron/page/notifMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pron/page/dashboard.dart';
 import 'package:app_pron/page/profile.dart';
@@ -23,45 +22,26 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple.shade300,
+      backgroundColor: Color.fromARGB(225, 64, 66, 88),
       body: PageStorage(
         child: currentScreen,
         bucket: bucket,
       ),
-      floatingActionButton: SpeedDial(
-        icon: Icons.print_outlined,
+      floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.purple,
-        overlayColor: Colors.black,
-        overlayOpacity: 0.4,
-        spacing: 12,
-        spaceBetweenChildren: 12,
-        openCloseDial: isDialOpen,
-        children: [
-          SpeedDialChild(
-              onTap: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => MyPrint2()));
-              },
-              child: Icon(Icons.print, color: Colors.white),
-              label: "print",
-              backgroundColor: Colors.black),
-          SpeedDialChild(
-              onTap: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => NotifMenu()));
-              },
-              child: Icon(
-                Icons.notifications,
-                color: Colors.white,
-              ),
-              label: "notif",
-              backgroundColor: Colors.black),
-        ],
+        onPressed: () {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MyPrint2()));
+        },
+        child: Icon(
+          Icons.print,
+          color: Colors.white,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
-        notchMargin: 10,
+        notchMargin: 8,
         child: Container(
           height: 60,
           child: Row(
@@ -70,7 +50,7 @@ class _HomeState extends State<Home> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(padding: EdgeInsets.all(15.0)),
+                  Padding(padding: EdgeInsets.only(left: 10.0)),
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
@@ -96,7 +76,7 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
-                  Padding(padding: EdgeInsets.all(15.0)),
+                  Padding(padding: EdgeInsets.only(left: 1.0)),
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
@@ -127,6 +107,7 @@ class _HomeState extends State<Home> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Padding(padding: EdgeInsets.only(left: 30.0)),
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
@@ -152,7 +133,7 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
-                  Padding(padding: EdgeInsets.all(15.0)),
+                  Padding(padding: EdgeInsets.only(left: 2.0)),
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
@@ -178,7 +159,6 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
-                  Padding(padding: EdgeInsets.all(15.0)),
                 ],
               ),
             ],

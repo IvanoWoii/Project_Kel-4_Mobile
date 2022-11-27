@@ -11,41 +11,67 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff392850),
+      backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
-          SizedBox(height: 25),
-          Padding(
-            padding: EdgeInsets.only(left: 12, right: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "Dashboard APP PRON",
-                      style: GoogleFonts.openSans(
-                          textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      "Home",
-                      style: GoogleFonts.openSans(
-                          textStyle: TextStyle(
-                              color: Color(0xffa29aac),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600)),
-                    ),
+          Stack(
+            children: <Widget>[
+              Container(
+                height: MediaQuery.of(context).size.height * .3,
+                decoration: BoxDecoration(
+                  color: Colors.purple.shade700.withOpacity(1.0),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 5.0,
+                        blurRadius: 7.0),
                   ],
+                  // gradient: new LinearGradient(
+                  //   begin: FractionalOffset.centerLeft,
+                  //   end: FractionalOffset.bottomRight,
+                  //   colors: [
+                  //     Color.fromARGB(250, 74, 35, 78).withOpacity(0.8),
+                  //     Color.fromARGB(250, 155, 11, 203).withOpacity(0.8),
+                  //   ],
+                  // ),
+                  image: DecorationImage(
+                      alignment: Alignment.topCenter,
+                      image: AssetImage("img/headerfoto.png"),
+                      fit: BoxFit.fill),
                 ),
-              ],
-            ),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * .3,
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 12, right: 16),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Dashboard APP PRON",
+                          style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          "Home",
+                          style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                  color: Color.fromARGB(255, 161, 156, 168),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: 40),
           GridDashboard(),
         ],
       ),

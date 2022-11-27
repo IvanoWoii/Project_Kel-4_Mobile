@@ -31,13 +31,13 @@ class _KategoriState extends State<Kategori>
                 textStyle: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: 41.0)),
+                    fontSize: 38.0)),
           ),
           SizedBox(height: 15),
           TabBar(
             controller: _tabController,
             indicatorColor: Colors.transparent,
-            labelColor: Color(0xFFC88D67),
+            labelColor: Colors.purple,
             isScrollable: true,
             labelPadding: EdgeInsets.only(right: 50.0, left: 50.0),
             unselectedLabelColor: Color(0xFFCDCDCD),

@@ -17,25 +17,24 @@ class GridDashboard extends StatelessWidget {
       img: "img/paper.png");
 
   Item item3 = new Item(
-      title: "test",
-      subtitle: "test sub",
-      event: "Rp 500 per lembar (Non Warna)",
-      event2: "Rp 1000 per lembar (Warna)",
+      title: "Kertas Buffalo",
+      subtitle: "21,5 x 33cm",
+      event: "Rp 1000 per lembar (Non Warna)",
+      event2: "Rp 1500 per lembar (Warna)",
       img: "img/paper.png");
 
   Item item4 = new Item(
-      title: "test",
-      subtitle: "test sub",
+      title: "Kertas F4",
+      subtitle: "21,5 x 33cm",
       event: "Rp 500 per lembar (Non Warna)",
       event2: "Rp 1000 per lembar (Warna)",
       img: "img/paper.png");
   @override
   Widget build(BuildContext context) {
     List<Item> myList = [item1, item2, item3, item4];
-    var color = 0xff453658;
     return Flexible(
       child: GridView.count(
-          childAspectRatio: 0.7,
+          childAspectRatio: 0.8,
           padding: EdgeInsets.only(left: 16, right: 16),
           crossAxisCount: 2,
           crossAxisSpacing: 18,
@@ -43,7 +42,14 @@ class GridDashboard extends StatelessWidget {
           children: myList.map((data) {
             return Container(
               decoration: BoxDecoration(
-                  color: Color(color), borderRadius: BorderRadius.circular(10)),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 5.0,
+                        blurRadius: 7.0),
+                  ]),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -53,8 +59,8 @@ class GridDashboard extends StatelessWidget {
                     data.title,
                     style: GoogleFonts.openSans(
                         textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
+                            color: Colors.black,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(height: 8),
@@ -62,8 +68,8 @@ class GridDashboard extends StatelessWidget {
                     data.subtitle,
                     style: GoogleFonts.openSans(
                         textStyle: TextStyle(
-                            color: Colors.white38,
-                            fontSize: 10,
+                            color: Colors.black38,
+                            fontSize: 6,
                             fontWeight: FontWeight.w600)),
                   ),
                   SizedBox(height: 14),
@@ -71,8 +77,8 @@ class GridDashboard extends StatelessWidget {
                     data.event,
                     style: GoogleFonts.openSans(
                         textStyle: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 11,
+                            color: Colors.black87,
+                            fontSize: 7,
                             fontWeight: FontWeight.w600)),
                   ),
                   SizedBox(height: 4),
@@ -80,8 +86,8 @@ class GridDashboard extends StatelessWidget {
                     data.event2,
                     style: GoogleFonts.openSans(
                         textStyle: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 11,
+                            color: Colors.black87,
+                            fontSize: 7,
                             fontWeight: FontWeight.w600)),
                   ),
                 ],
