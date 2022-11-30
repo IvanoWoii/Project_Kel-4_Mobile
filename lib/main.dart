@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "APP PRON",
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: login(),
     );
   }
 }
