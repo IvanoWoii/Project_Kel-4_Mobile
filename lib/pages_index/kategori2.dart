@@ -73,7 +73,7 @@ class Kategori2 extends StatelessWidget {
                           image: AssetImage(imgPath), fit: BoxFit.contain)),
                 ),
               ),
-              SizedBox(height: 7.0),
+              SizedBox(height: 5.0),
               Text(
                 price,
                 style: GoogleFonts.openSans(
@@ -85,27 +85,6 @@ class Kategori2 extends StatelessWidget {
                 style: GoogleFonts.openSans(
                     textStyle:
                         TextStyle(color: Color(0xFF575E67), fontSize: 14.0)),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Container(
-                  color: Color(0xFFEBEBEB),
-                  height: 1.0,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 5.0, right: 5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      "(Informasi produk)",
-                      style: GoogleFonts.openSans(
-                          textStyle:
-                              TextStyle(color: Colors.black, fontSize: 10)),
-                    )
-                  ],
-                ),
               ),
             ],
           ),

@@ -88,19 +88,19 @@ class _MyPrint2State extends State<MyPrint2> {
                     radius: Radius.circular(10),
                     dashPattern: [10, 4],
                     strokeCap: StrokeCap.round,
-                    color: Colors.blue.shade400,
+                    color: Colors.purple.shade400,
                     child: Container(
                       width: double.infinity,
                       height: 150,
                       decoration: BoxDecoration(
-                          color: Colors.blue.shade50.withOpacity(.3),
+                          color: Colors.purple.shade50.withOpacity(.3),
                           borderRadius: BorderRadius.circular(10)),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.folder_open,
-                            color: Colors.blue,
+                            color: Colors.purple,
                             size: 40,
                           ),
                           SizedBox(
@@ -116,14 +116,14 @@ class _MyPrint2State extends State<MyPrint2> {
                     ),
                   )),
             ),
-            if (file != null) fileDetails(file!),
-            if (file != null)
-              ElevatedButton(
-                onPressed: () {
-                  viewFile(file!);
-                },
-                child: Text('View Selected File'),
-              )
+            // if (file != null) fileDetails(file!),
+            // if (file != null)
+            //   ElevatedButton(
+            //     onPressed: () {
+            //       viewFile(file!);
+            //     },
+            //     child: Text('View Selected File'),
+            //   ),
           ],
         ),
       ),
@@ -155,13 +155,13 @@ class _MyPrint2State extends State<MyPrint2> {
       case 'Image':
         result = await FilePicker.platform.pickFiles(type: FileType.image);
         if (result == null) return;
-        file = result!.files.first;
+        loadSelectedFiles(result!.files);
         setState(() {});
         break;
       case 'All':
         result = await FilePicker.platform.pickFiles();
         if (result == null) return;
-        file = result!.files.first;
+        loadSelectedFiles(result!.files);
         setState(() {});
         break;
       case 'MultipleFile':

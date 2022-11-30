@@ -31,41 +31,45 @@ class Profile extends StatelessWidget {
                                     title: Text("Logout"),
                                     content: Text("Apalah Anda Ingin Logout?"),
                                     actions: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 40.0, left: 40.0),
-                                        child: MaterialButton(
-                                          padding: EdgeInsets.all(8.0),
-                                          color: Colors.redAccent,
-                                          onPressed: () {
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        login()));
-                                          },
-                                          child: Text("iya",
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 40.0, left: 40.0),
-                                        child: MaterialButton(
-                                          padding: EdgeInsets.all(8.0),
-                                          color: Colors.green,
-                                          onPressed: () {
-                                            Navigator.pop(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Profile()));
-                                          },
-                                          child: Text("Tidak",
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                        ),
+                                      Row(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 40.0, left: 40.0),
+                                            child: MaterialButton(
+                                              padding: EdgeInsets.all(8.0),
+                                              color: Colors.redAccent,
+                                              onPressed: () {
+                                                Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            login()));
+                                              },
+                                              child: Text("iya",
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 40.0, left: 40.0),
+                                            child: MaterialButton(
+                                              padding: EdgeInsets.all(8.0),
+                                              color: Colors.green,
+                                              onPressed: () {
+                                                Navigator.pop(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Profile()));
+                                              },
+                                              child: Text("Tidak",
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ));

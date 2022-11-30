@@ -44,35 +44,5 @@ class _SplahScreenState extends State<SplahScreen> {
       durationInSeconds: 10,
       loaderColor: Colors.white,
     );
-    // return Scaffold(
-    //   body: Container(
-    //     width: MediaQuery.of(context).size.width,
-    //     decoration: new BoxDecoration(
-    //       gradient: new LinearGradient(
-    //         begin: FractionalOffset.topLeft,
-    //         end: FractionalOffset.bottomRight,
-    //         colors: [Color.fromARGB(250, 175, 1, 113), Colors.purpleAccent],
-    //       ),
-    //     ),
-    //     child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: [
-    //         Image.asset(
-    //           "img/logo no bg.png",
-    //           width: 300,
-    //           height: 300,
-    //         ),
-    //         Text(
-    //           "Tempat Dimana Print Tanpa Antri",
-    //           style: TextStyle(
-    //               color: Colors.white,
-    //               fontWeight: FontWeight.bold,
-    //               fontSize: 20,
-    //               fontFamily: "Monsterart"),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }
