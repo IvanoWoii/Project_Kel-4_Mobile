@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:js';
 
 import 'package:app_pron/home.dart';
 import 'package:app_pron/page/profile.dart';
@@ -9,7 +8,6 @@ import 'package:app_pron/lupa_password_page/reset_password.dart';
 import 'package:app_pron/register.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
@@ -22,31 +20,31 @@ class login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future _login() async {
-      var url = Uri.http(
-          "192.168.1.10", '/project_mobile/login.php', {'q': '{http}'});
-      var response = await http.post(url, body: {
-        "username": user.text,
-        "password": pass.text,
-      });
-      var data = jsonDecode(response.body);
-      if (data.toString() == "Succes") {
-        Fluttertoast.showToast(
-          msg: 'Berhasil Login',
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          toastLength: Toast.LENGTH_SHORT,
-        );
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Home()));
-      } else {
-        Fluttertoast.showToast(
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            msg: 'Username dan password salah',
-            toastLength: Toast.LENGTH_SHORT);
-      }
-    }
+    // Future _login() async {
+    //   var url = Uri.http(
+    //       "192.168.1.10", '/project_mobile/login.php', {'q': '{http}'});
+    //   var response = await http.post(url, body: {
+    //     "username": user.text,
+    //     "password": pass.text,
+    //   });
+    //   var data = jsonDecode(response.body);
+    //   if (data.toString() == "Succes") {
+    //     Fluttertoast.showToast(
+    //       msg: 'Berhasil Login',
+    //       backgroundColor: Colors.green,
+    //       textColor: Colors.white,
+    //       toastLength: Toast.LENGTH_SHORT,
+    //     );
+    //     Navigator.push(
+    //         context, MaterialPageRoute(builder: (context) => Home()));
+    //   } else {
+    //     Fluttertoast.showToast(
+    //         backgroundColor: Colors.red,
+    //         textColor: Colors.white,
+    //         msg: 'Username dan password salah',
+    //         toastLength: Toast.LENGTH_SHORT);
+    //   }
+    // }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -135,9 +133,7 @@ class login extends StatelessWidget {
                                           color: Colors.white),
                                     ),
                                   ),
-                                  onPressed: () {
-                                    _login();
-                                  },
+                                  onPressed: () {},
                                 ),
                               ),
                               Container(
