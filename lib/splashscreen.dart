@@ -26,7 +26,10 @@ class _SplahScreenState extends State<SplahScreen> {
       gradientBackground: LinearGradient(
         begin: FractionalOffset.topLeft,
         end: FractionalOffset.bottomRight,
-        colors: [Color.fromARGB(250, 175, 1, 113), Colors.purpleAccent],
+        colors: [
+          Color.fromARGB(250, 74, 35, 78),
+          Color.fromARGB(250, 155, 11, 203),
+        ],
       ),
       logo: Image.asset("img/logo no bg.png"),
       logoWidth: 150.0,
