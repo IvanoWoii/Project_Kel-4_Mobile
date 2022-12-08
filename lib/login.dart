@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:js';
 
 import 'package:app_pron/home.dart';
 import 'package:app_pron/page/profile.dart';
@@ -8,7 +9,9 @@ import 'package:app_pron/lupa_password_page/reset_password.dart';
 import 'package:app_pron/register.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '';
 import 'package:http/http.dart' as http;
 
 class login extends StatelessWidget {
@@ -18,34 +21,16 @@ class login extends StatelessWidget {
   TextEditingController user = new TextEditingController();
   TextEditingController pass = new TextEditingController();
 
+  List result = [];
+  Future<void> _login() async {
+    Uri url = Uri.parse(
+        "http://localhost/project_mobile/user/login.php?username=${user.text.toString()}&password=${pass.text.toString()}");
+    var response = await http.get(url);
+    print(response.body);
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Future _login() async {
-    //   var url = Uri.http(
-    //       "192.168.1.10", '/project_mobile/login.php', {'q': '{http}'});
-    //   var response = await http.post(url, body: {
-    //     "username": user.text,
-    //     "password": pass.text,
-    //   });
-    //   var data = jsonDecode(response.body);
-    //   if (data.toString() == "Succes") {
-    //     Fluttertoast.showToast(
-    //       msg: 'Berhasil Login',
-    //       backgroundColor: Colors.green,
-    //       textColor: Colors.white,
-    //       toastLength: Toast.LENGTH_SHORT,
-    //     );
-    //     Navigator.push(
-    //         context, MaterialPageRoute(builder: (context) => Home()));
-    //   } else {
-    //     Fluttertoast.showToast(
-    //         backgroundColor: Colors.red,
-    //         textColor: Colors.white,
-    //         msg: 'Username dan password salah',
-    //         toastLength: Toast.LENGTH_SHORT);
-    //   }
-    // }
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -134,10 +119,6 @@ class login extends StatelessWidget {
                                     ),
                                   ),
                                   onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Home()));
                                   },
                                 ),
                               ),
