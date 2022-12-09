@@ -1,6 +1,11 @@
+import 'dart:convert';
+
+import 'package:app_pron/home.dart';
 import 'package:app_pron/login.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -40,6 +45,32 @@ class _MyRegisterState extends State<MyRegister> {
 
   bool isConfirmPasswordVisible = false;
 
+  TextEditingController user = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController pass = TextEditingController();
+  TextEditingController nohp = TextEditingController();
+
+  Future<void> _register() async {
+    Uri url = Uri.parse("http://192.168.1.18/project_mobile/user/register.php");
+    var response = await http.get(url);
+    var data = jsonDecode(response.body);
+    if (data == "gagal") {
+      Fluttertoast.showToast(
+          msg: "User ini sudah ada",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: Colors.red,
+          textColor: Colors.white);
+    } else
+      Fluttertoast.showToast(
+          msg: "berhasil",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: Colors.green,
+          textColor: Colors.white);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => login()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,7 +87,7 @@ class _MyRegisterState extends State<MyRegister> {
       ),
       child: Scaffold(
         backgroundColor: (Colors.transparent),
-        body: SafeArea(
+        body: SingleChildScrollView(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -86,6 +117,7 @@ class _MyRegisterState extends State<MyRegister> {
                   padding:
                       EdgeInsets.symmetric(horizontal: 30).copyWith(bottom: 10),
                   child: TextField(
+                    controller: user,
                     style: TextStyle(color: Colors.white, fontSize: 14.5),
                     decoration: InputDecoration(
                         prefixIconConstraints: BoxConstraints(minWidth: 45),
@@ -112,6 +144,7 @@ class _MyRegisterState extends State<MyRegister> {
                   padding:
                       EdgeInsets.symmetric(horizontal: 30).copyWith(bottom: 10),
                   child: TextField(
+                    controller: email,
                     style: TextStyle(color: Colors.white, fontSize: 14.5),
                     decoration: InputDecoration(
                         prefixIconConstraints: BoxConstraints(minWidth: 45),
@@ -138,6 +171,7 @@ class _MyRegisterState extends State<MyRegister> {
                   padding:
                       EdgeInsets.symmetric(horizontal: 30).copyWith(bottom: 10),
                   child: TextField(
+                    controller: pass,
                     style: TextStyle(color: Colors.white, fontSize: 14.5),
                     obscureText: isPasswordVisible ? false : true,
                     decoration: InputDecoration(
@@ -225,6 +259,7 @@ class _MyRegisterState extends State<MyRegister> {
                   padding:
                       EdgeInsets.symmetric(horizontal: 30).copyWith(bottom: 10),
                   child: TextField(
+                    controller: nohp,
                     style: TextStyle(color: Colors.white, fontSize: 14.5),
                     decoration: InputDecoration(
                         prefixIconConstraints: BoxConstraints(minWidth: 45),
@@ -251,7 +286,9 @@ class _MyRegisterState extends State<MyRegister> {
                   height: 20,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _register();
+                  },
                   child: Container(
                     height: 53,
                     width: double.infinity,

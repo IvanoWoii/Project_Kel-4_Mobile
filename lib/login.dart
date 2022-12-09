@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:js';
 
 import 'package:app_pron/home.dart';
 import 'package:app_pron/page/profile.dart';
@@ -22,15 +21,36 @@ class login extends StatelessWidget {
   TextEditingController pass = new TextEditingController();
 
   List result = [];
-  Future<void> _login() async {
-    Uri url = Uri.parse(
-        "http://localhost/project_mobile/user/login.php?username=${user.text.toString()}&password=${pass.text.toString()}");
-    var response = await http.get(url);
-    print(response.body);
-  }
 
   @override
   Widget build(BuildContext context) {
+    Future<void> _login() async {
+      Uri url = Uri.parse(
+          "http://192.168.1.18/project_mobile/user/login.php?username=${user.text.toString()}&password=${pass.text.toString()}");
+      var response = await http.get(url);
+      var data = jsonDecode(response.body);
+
+      if (data.toString() == "berhasil") {
+        Fluttertoast.showToast(
+            msg: "Berhasil Login",
+            toastLength: Toast.LENGTH_SHORT,
+            timeInSecForIosWeb: 1,
+            gravity: ToastGravity.CENTER,
+            backgroundColor: Colors.green,
+            textColor: Colors.white);
+
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Home()));
+      } else {
+        Fluttertoast.showToast(
+            msg: "username atau password salah",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            backgroundColor: Colors.red,
+            textColor: Colors.white);
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -119,6 +139,7 @@ class login extends StatelessWidget {
                                     ),
                                   ),
                                   onPressed: () {
+                                    _login();
                                   },
                                 ),
                               ),
