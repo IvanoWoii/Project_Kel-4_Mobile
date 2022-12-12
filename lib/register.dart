@@ -51,8 +51,14 @@ class _MyRegisterState extends State<MyRegister> {
   TextEditingController nohp = TextEditingController();
 
   Future<void> _register() async {
-    Uri url = Uri.parse("http://192.168.1.18/project_mobile/user/register.php");
-    var response = await http.get(url);
+    Uri url = Uri.parse("http://192.168.203.52/project_mobile/user/register.php");
+    var response = await http.post(url,body: {
+      "username": user.text,
+      "email":email.text,
+      "password":pass.text,
+      "ho_hp":nohp.text,
+      "role": "customer",
+    });
     var data = jsonDecode(response.body);
     if (data == "gagal") {
       Fluttertoast.showToast(
