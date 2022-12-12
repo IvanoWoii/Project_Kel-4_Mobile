@@ -22,6 +22,7 @@ class ThemeHelper {
       focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(100.0),
           borderSide: BorderSide(color: Colors.red, width: 2.0)),
+          
     );
   }
 

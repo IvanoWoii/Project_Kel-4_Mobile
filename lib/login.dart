@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:app_pron/home.dart';
@@ -6,19 +7,28 @@ import 'package:app_pron/pages_index/headerWidget.dart';
 import 'package:app_pron/pages_index/theme_helper.dart';
 import 'package:app_pron/lupa_password_page/reset_password.dart';
 import 'package:app_pron/register.dart';
+import 'package:app_pron/splashscreen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '';
 import 'package:http/http.dart' as http;
 
-class login extends StatelessWidget {
+class login extends StatefulWidget {
+  @override
+  State<login> createState() => _loginState();
+}
+
+class _loginState extends State<login> {
   double _headerHeight = 250;
-  Key _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   TextEditingController user = new TextEditingController();
   TextEditingController pass = new TextEditingController();
+
+  bool isPasswordVisible = false;
 
   List result = [];
 
@@ -26,7 +36,7 @@ class login extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<void> _login() async {
       Uri url = Uri.parse(
-          "http://192.168.1.18/project_mobile/user/login.php?username=${user.text.toString()}&password=${pass.text.toString()}");
+          "http://192.168.1.15/project_mobile/user/login.php?username=${user.text.toString()}&password=${pass.text.toString()}");
       var response = await http.get(url);
       var data = jsonDecode(response.body);
 
@@ -78,11 +88,21 @@ class login extends StatelessWidget {
                       ),
                       SizedBox(height: 30.0),
                       Form(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           key: _formKey,
                           child: Column(
                             children: [
                               Container(
-                                child: TextField(
+                                child: TextFormField(
+                                  validator: (value) {
+                                    if (value!.isEmpty ||
+                                        !RegExp(r'^[a-z A-Z]+$')
+                                            .hasMatch(value)) {
+                                      return "Masukan username yang benar";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
                                   controller: user,
                                   decoration: ThemeHelper().textInputDecoration(
                                       'User Name', 'Masukan username'),
@@ -92,11 +112,61 @@ class login extends StatelessWidget {
                               ),
                               SizedBox(height: 30.0),
                               Container(
-                                child: TextField(
+                                child: TextFormField(
+                                  validator: (value) {
+                                    if (value!.isEmpty ||
+                                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$')
+                                            .hasMatch(value)) {
+                                      return "Masukan password yang benar";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
                                   controller: pass,
-                                  obscureText: true,
-                                  decoration: ThemeHelper().textInputDecoration(
-                                      'Password', 'Masukan password'),
+                                  obscureText: isPasswordVisible ? false : true,
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    labelText: "Password",
+                                    hintText: "Masukan Password",
+                                    contentPadding:
+                                        EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(100.0),
+                                        borderSide:
+                                            BorderSide(color: Colors.grey)),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(100.0),
+                                        borderSide: BorderSide(
+                                            color: Colors.grey.shade400)),
+                                    errorBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(100.0),
+                                        borderSide: BorderSide(
+                                            color: Colors.red, width: 2.0)),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(100.0),
+                                        borderSide: BorderSide(
+                                            color: Colors.red, width: 2.0)),
+                                    suffixIcon: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isPasswordVisible =
+                                              !isPasswordVisible;
+                                        });
+                                      },
+                                      child: Icon(
+                                        isPasswordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: Colors.black,
+                                        size: 22,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                                 decoration:
                                     ThemeHelper().inputBoxDecorationShaddow(),
@@ -138,8 +208,18 @@ class login extends StatelessWidget {
                                           color: Colors.white),
                                     ),
                                   ),
-                                  onPressed: () {
-                                    _login();
+                                  onPressed: () async {
+                                    final isValidForm =
+                                        _formKey.currentState!.validate();
+                                    if (isValidForm) {
+                                      var sharedPref =
+                                          await SharedPreferences.getInstance();
+                                      sharedPref.setBool(
+                                          SplahScreenState.KEYLOGIN, true);
+                                      _login();
+                                    } else {
+                                      return null;
+                                    }
                                   },
                                 ),
                               ),

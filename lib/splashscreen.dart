@@ -1,22 +1,44 @@
 import 'dart:async';
 
+import 'package:app_pron/home.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'login.dart';
 
 class SplahScreen extends StatefulWidget {
   @override
-  State<SplahScreen> createState() => _SplahScreenState();
+  State<SplahScreen> createState() => SplahScreenState();
 }
 
-class _SplahScreenState extends State<SplahScreen> {
+class SplahScreenState extends State<SplahScreen> {
+  static const String KEYLOGIN = "login";
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => login()));
+    whereToGo();
+  }
+
+  void whereToGo() async {
+    var sharePref = await SharedPreferences.getInstance();
+
+    var isLogeedIn = sharePref.getBool(KEYLOGIN);
+
+    Timer(Duration(seconds: 2), () {
+      if (isLogeedIn != null) {
+        if (isLogeedIn) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => Home()));
+        } else {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => login()));
+        }
+      } else {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => login()));
+      }
     });
   }
 
