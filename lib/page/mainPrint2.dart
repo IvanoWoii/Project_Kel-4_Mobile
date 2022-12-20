@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class _MyPrint2State extends State<MyPrint2> {
           },
           child: Icon(Icons.arrow_back),
         ),
+        backgroundColor: Colors.purple,
       ),
       body: Center(
         child: Column(
@@ -53,32 +55,11 @@ class _MyPrint2State extends State<MyPrint2> {
                 SizedBox(
                   height: 20,
                 ),
-                const Text(
-                  'Selected File Type:  ',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                DropdownButton(
-                  value: fileType,
-                  items: fileTypeList.map((String type) {
-                    return DropdownMenuItem(
-                        value: type,
-                        child: Text(
-                          type,
-                          style: TextStyle(fontSize: 20),
-                        ));
-                  }).toList(),
-                  onChanged: (String? value) {
-                    setState(() {
-                      fileType = value!;
-                      file = null;
-                    });
-                  },
-                ),
               ],
             ),
             GestureDetector(
               onTap: () async {
-                pickFiles(fileType);
+                pickFiles();
               },
               child: Padding(
                   padding:
@@ -150,26 +131,13 @@ class _MyPrint2State extends State<MyPrint2> {
     );
   }
 
-  void pickFiles(String? filetype) async {
-    switch (filetype) {
-      case 'Image':
-        result = await FilePicker.platform.pickFiles(type: FileType.image);
-        if (result == null) return;
-        loadSelectedFiles(result!.files);
-        setState(() {});
-        break;
-      case 'All':
-        result = await FilePicker.platform.pickFiles();
-        if (result == null) return;
-        loadSelectedFiles(result!.files);
-        setState(() {});
-        break;
-      case 'MultipleFile':
-        result = await FilePicker.platform.pickFiles(allowMultiple: true);
-        if (result == null) return;
-        loadSelectedFiles(result!.files);
-        break;
-    }
+  void pickFiles() async {
+    result = await FilePicker.platform.pickFiles();
+    if (result == null) return;
+    loadSelectedFiles(result!.files);
+    setState(() {
+      
+    });
   }
 
   // multiple file selected

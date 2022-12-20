@@ -72,6 +72,20 @@ class _DashboardState extends State<Dashboard> {
               ),
             ],
           ),
+          SizedBox(
+            height: 10,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 5.0,
+                        blurRadius: 7.0),
+                  ]),
+            ),
+          ),
           GridDashboard(),
         ],
       ),

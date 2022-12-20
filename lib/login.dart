@@ -36,7 +36,7 @@ class _loginState extends State<login> {
   Widget build(BuildContext context) {
     Future<void> _login() async {
       Uri url = Uri.parse(
-          "http://192.168.1.15/project_mobile/user/login.php?username=${user.text.toString()}&password=${pass.text.toString()}");
+          "http://192.168.1.16/project_mobile/user/login.php?username=${user.text.toString()}&password=${pass.text.toString()}");
       var response = await http.get(url);
       var data = jsonDecode(response.body);
 
@@ -113,15 +113,15 @@ class _loginState extends State<login> {
                               SizedBox(height: 30.0),
                               Container(
                                 child: TextFormField(
-                                  validator: (value) {
-                                    if (value!.isEmpty ||
-                                        !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$')
-                                            .hasMatch(value)) {
-                                      return "Masukan password yang benar";
-                                    } else {
-                                      return null;
-                                    }
-                                  },
+                                  // validator: (value) {
+                                  //   if (value!.isEmpty ||
+                                  //       !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$')
+                                  //           .hasMatch(value)) {
+                                  //     return "Masukan password yang benar";
+                                  //   } else {
+                                  //     return null;
+                                  //   }
+                                  // },
                                   controller: pass,
                                   obscureText: isPasswordVisible ? false : true,
                                   decoration: InputDecoration(
@@ -162,7 +162,7 @@ class _loginState extends State<login> {
                                         isPasswordVisible
                                             ? Icons.visibility
                                             : Icons.visibility_off,
-                                        color: Colors.black,
+                                        color: Colors.grey,
                                         size: 22,
                                       ),
                                     ),
@@ -172,26 +172,26 @@ class _loginState extends State<login> {
                                     ThemeHelper().inputBoxDecorationShaddow(),
                               ),
                               SizedBox(height: 15.0),
-                              Container(
-                                margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
-                                alignment: Alignment.topRight,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ResetPassword()),
-                                    );
-                                  },
-                                  child: Text(
-                                    "Lupa Password?",
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // Container(
+                              //   margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
+                              //   alignment: Alignment.topRight,
+                              //   child: GestureDetector(
+                              //     onTap: () {
+                              //       Navigator.push(
+                              //         context,
+                              //         MaterialPageRoute(
+                              //             builder: (context) =>
+                              //                 ResetPassword()),
+                              //       );
+                              //     },
+                              //     child: Text(
+                              //       "Lupa Password?",
+                              //       style: TextStyle(
+                              //         color: Colors.grey,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                               Container(
                                 decoration:
                                     ThemeHelper().buttonBoxDecoration(context),

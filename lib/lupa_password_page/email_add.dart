@@ -35,48 +35,55 @@ class _EmailAddState extends State<EmailAdd> {
       body: PageView.builder(
           itemCount: 5,
           itemBuilder: (context, index) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Lottie.asset('animasi/${index + 3}.json',
-                    height: 200,
-                    reverse: true,
-                    repeat: true,
-                    fit: BoxFit.cover),
-                SizedBox(height: 20),
-                Text(
-                  "Masukkan Email",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    "Masukkan Email Anda Untuk Mendapatkan Kode Verifikasi",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+            return SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Lottie.asset('animasi/${index + 3}.json',
+                      height: 200,
+                      reverse: true,
+                      repeat: true,
+                      fit: BoxFit.cover),
+                  SizedBox(height: 20),
+                  Text(
+                    "Masukkan Email",
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
-                ),
-                SizedBox(height: 20),
-                Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20.0),
-                    child: buildTextField("Email", "Email", false)),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => VerifEmail()));
-                  },
-                  child: Text("Kirim",
-                      style: TextStyle(
-                          fontSize: 15, letterSpacing: 2, color: Colors.white)),
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.purple,
-                      padding: EdgeInsets.symmetric(horizontal: 50),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40))),
-                ),
-              ],
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      "Masukkan Email Anda Untuk Mendapatkan Kode Verifikasi",
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20.0),
+                      child: buildTextField("Email", "Email", false)),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => VerifEmail()));
+                    },
+                    child: Text("Kirim",
+                        style: TextStyle(
+                            fontSize: 15,
+                            letterSpacing: 2,
+                            color: Colors.white)),
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.purple,
+                        padding: EdgeInsets.symmetric(horizontal: 50),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40))),
+                  ),
+                ],
+              ),
             );
           }),
     );

@@ -33,10 +33,12 @@ class Profile extends StatelessWidget {
                                     content: Text("Apalah Anda Ingin Logout?"),
                                     actions: [
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                right: 40.0, left: 40.0),
+                                                right: 33.0, left: 33.0),
                                             child: MaterialButton(
                                               padding: EdgeInsets.all(8.0),
                                               color: Colors.redAccent,
@@ -60,7 +62,7 @@ class Profile extends StatelessWidget {
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                right: 40.0, left: 40.0),
+                                                right: 33.0, left: 33.0),
                                             child: MaterialButton(
                                               padding: EdgeInsets.all(8.0),
                                               color: Colors.green,
@@ -142,39 +144,43 @@ class Profile extends StatelessWidget {
             ),
           ),
           SizedBox(height: 5),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: UnderlineInputBorder(), hintText: 'Username'),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: UnderlineInputBorder(), hintText: 'Nama Lengkap'),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: UnderlineInputBorder(), hintText: 'Email'),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: UnderlineInputBorder(), hintText: 'Alamat'),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: UnderlineInputBorder(), hintText: 'No Hp'),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        border: UnderlineInputBorder(), hintText: 'Username'),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        border: UnderlineInputBorder(), hintText: 'Email'),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  child: TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        border: UnderlineInputBorder(), hintText: 'Password'),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        border: UnderlineInputBorder(), hintText: 'NO HP'),
+                  ),
+                ),
+              ],
             ),
           ),
           SizedBox(height: 20),
