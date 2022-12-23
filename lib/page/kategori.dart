@@ -1,77 +1,58 @@
-import 'package:app_pron/pages_index/kategori2.dart';
-import 'package:app_pron/pages_index/kertasPage.dart';
+import 'package:app_pron/pages_index/tabs.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Kategori extends StatefulWidget {
+  const Kategori({super.key});
+
   @override
   State<Kategori> createState() => _KategoriState();
 }
 
-class _KategoriState extends State<Kategori>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-  }
-
+class _KategoriState extends State<Kategori> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          padding: EdgeInsets.only(left: 20.0),
-          children: <Widget>[
-            SizedBox(height: 15),
-            Text(
-              "Kategori",
-              style: GoogleFonts.openSans(
-                  textStyle: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 38.0)),
-            ),
-            SizedBox(height: 15),
-            TabBar(
-              controller: _tabController,
-              indicatorColor: Colors.transparent,
-              labelColor: Colors.purple,
-              isScrollable: true,
-              labelPadding: EdgeInsets.only(right: 50.0, left: 50.0),
-              unselectedLabelColor: Color(0xFFCDCDCD),
-              tabs: [
-                Tab(
-                  child: Text(
-                    "Kertas",
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(fontSize: 21.0)),
-                  ),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            "Kategori",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.purple,
+        ),
+        body: Column(
+          children: [
+            TabBar(tabs: [
+              Tab(
+                icon: Icon(
+                  Icons.people,
+                  color: Colors.deepPurple,
                 ),
-                Tab(
-                  child: Text(
-                    "Alat Tulis",
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(fontSize: 21.0)),
-                  ),
+                child: Text(
+                  "Alat Tulis",
+                  style: TextStyle(color: Colors.black),
                 ),
-                Tab(
-                  child: Text(
-                    "ATK",
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(fontSize: 21.0)),
-                  ),
+              ),
+              Tab(
+                icon: Icon(Icons.category_sharp, color: Colors.deepPurple),
+                child: Text(
+                  "Alat Ukur",
+                  style: TextStyle(color: Colors.black),
                 ),
-              ],
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height - 20.0,
-              width: double.infinity,
+              ),
+              Tab(
+                icon: Icon(Icons.category_sharp, color: Colors.deepPurple),
+                child: Text(
+                  "Alat Tulis",
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ]),
+            Expanded(
               child: TabBarView(
-                controller: _tabController,
-                children: [KertasPages(), Kategori2(), KertasPages()],
+                children: [Tabs1(), Tabs2(), Tabs3()],
               ),
             ),
           ],

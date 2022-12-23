@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:app_pron/bottNav.dart';
+import 'package:app_pron/bottNav.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:open_file/open_file.dart';
 import 'package:app_pron/pages_index/fileList.dart';
-import 'package:app_pron/home.dart';
+
 
 class MyPrint2 extends StatefulWidget {
   const MyPrint2({Key? key}) : super(key: key);
@@ -25,7 +27,7 @@ class _MyPrint2State extends State<MyPrint2> {
         leading: GestureDetector(
           onTap: () {
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Home()));
+                context, MaterialPageRoute(builder: (context) => kumNav()));
           },
           child: Icon(Icons.arrow_back),
         ),

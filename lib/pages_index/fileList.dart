@@ -9,6 +9,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:app_pron/url.dart';
 
 class FileList extends StatefulWidget {
   final List<PlatformFile> files;
@@ -27,8 +28,11 @@ class _FileListState extends State<FileList> {
 
   final _formKey = GlobalKey<FormState>();
 
+  int? hasilIdPrint = 0;
+
   int? result = 0, num1 = 0, num2 = 0;
   int? hasilTotal = 0;
+
   add() {
     setState(() {
       num1 = int.parse(brpKali.text);
@@ -50,7 +54,8 @@ class _FileListState extends State<FileList> {
   List<dataPrint>? apiList;
 
   Future<void> getDataPrint() async {
-    Uri url = Uri.parse("http://192.168.1.16/project_mobile/getDataBarang.php");
+    Uri url =
+        Uri.parse("http://${Url.URL_API}/project_mobile/getDataBarang.php");
     var respone = await http.get(url);
 
     apiList = jsonDecode(respone.body)
@@ -66,21 +71,21 @@ class _FileListState extends State<FileList> {
   }
 
   Future<void> _uploadFile() async {
-    Uri url =
-        Uri.parse("http://192.168.1.16/project_mobile/user/uploadAwal.php");
+    Uri url = Uri.parse(
+        "http://${Url.URL_API}/project_mobile/transaksi/uploadAwal.php");
     var response = await http.post(url, body: {
-      "tanggal": "curdate()",
+      "tanggal": DateTime.now().toString(),
       "file": "-",
+      "id_print": "$hasilIdPrint",
       "berapa_kali_print": brpKali.text,
       "jumlah_kertas": jumlahBrp.text,
       "total_harga": "$hasilTotal",
-      "jenis_pembayaran": "-",
       "status": "pending",
     });
     var data = jsonDecode(response.body);
     if (data == "gagal") {
       Fluttertoast.showToast(
-          msg: "User ini sudah ada",
+          msg: "gagal! cek kembali",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           backgroundColor: Colors.red,
@@ -92,6 +97,9 @@ class _FileListState extends State<FileList> {
           gravity: ToastGravity.CENTER,
           backgroundColor: Colors.green,
           textColor: Colors.white);
+
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Pembyaran()));
   }
 
   @override
@@ -272,16 +280,78 @@ class _FileListState extends State<FileList> {
                       ),
                       onPressed: () async {
                         add();
-                        // final isValidForm = _formKey.currentState!.validate();
-                        // if (isValidForm) {
-                        //   add();
-                        // } else {
-                        //   return null;
-                        // }
                         switch (selectedItem) {
                           case "A4 Hitam Putih":
                             {
                               hasilTotal = result! * 500;
+                              hasilIdPrint = 1;
+                              showBottomSheet(
+                                  backgroundColor: Colors.grey[800],
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return SizedBox(
+                                      height: 200,
+                                      width: double.infinity,
+                                      child: Container(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            Text(
+                                              "Total Anda Adalah :",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16),
+                                            ),
+                                            Text(
+                                              "$hasilTotal",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                ElevatedButton(
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStatePropertyAll<
+                                                                  Color>(
+                                                              Colors.green)),
+                                                  child: const Text("Lanjut"),
+                                                  onPressed: () {
+                                                    _uploadFile();
+                                                  },
+                                                ),
+                                                ElevatedButton(
+                                                  child: const Text("tutup"),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  });
+                            }
+                            break;
+                          case "A4 Warna":
+                            {
+                              hasilTotal = result! * 1000;
+                              hasilIdPrint = 2;
                               showBottomSheet(
                                   backgroundColor: Colors.grey[800],
                                   context: context,
@@ -349,24 +419,217 @@ class _FileListState extends State<FileList> {
                                   });
                             }
                             break;
-                          case "A4 Warna":
-                            {
-                              hasilTotal = result! * 1000;
-                            }
-                            break;
                           case "F4 Warna":
                             {
                               hasilTotal = result! * 1000;
+                              hasilIdPrint = 4;
+                              showBottomSheet(
+                                  backgroundColor: Colors.grey[800],
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return SizedBox(
+                                      height: 200,
+                                      width: double.infinity,
+                                      child: Container(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            Text(
+                                              "Total Anda Adalah :",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16),
+                                            ),
+                                            Text(
+                                              "$hasilTotal",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                ElevatedButton(
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStatePropertyAll<
+                                                                  Color>(
+                                                              Colors.green)),
+                                                  child: const Text("Lanjut"),
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                Pembyaran()));
+                                                  },
+                                                ),
+                                                ElevatedButton(
+                                                  child: const Text("tutup"),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  });
                             }
                             break;
                           case "F4 Hitam Putih":
                             {
                               hasilTotal = result! * 500;
+                              hasilIdPrint = 3;
+                              showBottomSheet(
+                                  backgroundColor: Colors.grey[800],
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return SizedBox(
+                                      height: 200,
+                                      width: double.infinity,
+                                      child: Container(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            Text(
+                                              "Total Anda Adalah :",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16),
+                                            ),
+                                            Text(
+                                              "$hasilTotal",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                ElevatedButton(
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStatePropertyAll<
+                                                                  Color>(
+                                                              Colors.green)),
+                                                  child: const Text("Lanjut"),
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                Pembyaran()));
+                                                  },
+                                                ),
+                                                ElevatedButton(
+                                                  child: const Text("tutup"),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  });
                             }
                             break;
                           case "Jilid":
                             {
                               hasilTotal = result! * 2500;
+                              hasilIdPrint = 5;
+                              showBottomSheet(
+                                  backgroundColor: Colors.grey[800],
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return SizedBox(
+                                      height: 200,
+                                      width: double.infinity,
+                                      child: Container(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            Text(
+                                              "Total Anda Adalah :",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16),
+                                            ),
+                                            Text(
+                                              "$hasilTotal",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                ElevatedButton(
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStatePropertyAll<
+                                                                  Color>(
+                                                              Colors.green)),
+                                                  child: const Text("Lanjut"),
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                Pembyaran()));
+                                                  },
+                                                ),
+                                                ElevatedButton(
+                                                  child: const Text("tutup"),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  });
                             }
                             break;
                           default:

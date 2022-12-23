@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:app_pron/home.dart';
 import 'package:app_pron/page/profile.dart';
 import 'package:app_pron/pages_index/headerWidget.dart';
 import 'package:app_pron/pages_index/theme_helper.dart';
@@ -13,7 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '';
+import 'package:app_pron/url.dart';
+import 'package:app_pron/bottNav.dart';
 import 'package:http/http.dart' as http;
 
 class login extends StatefulWidget {
@@ -29,38 +29,97 @@ class _loginState extends State<login> {
   TextEditingController pass = new TextEditingController();
 
   bool isPasswordVisible = false;
+  bool _visible = false;
 
   List result = [];
 
+  Future<void> _login() async {
+    Uri url = Uri.parse(
+        "http://${Url.URL_API}/project_mobile/user/login.php?username=${user.text.toString()}&password=${pass.text.toString()}");
+    var response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      //Server response into variable
+      print(response.body);
+      var msg = jsonDecode(response.body);
+
+      //Check Login Status
+      if (msg['loginStatus'] == true) {
+        setState(() {
+          //hide progress indicator
+          _visible = false;
+        });
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setBool('isLoggedIn', true);
+
+        await prefs.setString(
+          'id_user',
+          msg['userInfo']['id_user'],
+        );
+        await prefs.setString(
+          'username',
+          msg['userInfo']['username'],
+        );
+        await prefs.setString(
+          'email',
+          msg['userInfo']['email'],
+        );
+        await prefs.setString(
+          'password',
+          msg['userInfo']['password'],
+        );
+        await prefs.setString(
+          'no_hp',
+          msg['userInfo']['no_hp'],
+        );
+        await prefs.setString(
+          'role',
+          msg['userInfo']['role'],
+        );
+        // Navigate to Home Screen
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => kumNav()));
+      } else {
+        setState(() {
+          //hide progress indicator
+          _visible = false;
+
+          //Show Error Message Dialog
+          showMessage(msg["message"]);
+        });
+      }
+    } else {
+      setState(() {
+        //hide progress indicator
+        _visible = false;
+
+        //Show Error Message Dialog
+        showMessage("Error during connecting to Server.");
+      });
+    }
+  }
+
+  Future<void> showMessage(String _msg) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(_msg),
+          actions: <Widget>[
+            TextButton(
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<void> _login() async {
-      Uri url = Uri.parse(
-          "http://192.168.1.16/project_mobile/user/login.php?username=${user.text.toString()}&password=${pass.text.toString()}");
-      var response = await http.get(url);
-      var data = jsonDecode(response.body);
-
-      if (data.toString() == "berhasil") {
-        Fluttertoast.showToast(
-            msg: "Berhasil Login",
-            toastLength: Toast.LENGTH_SHORT,
-            timeInSecForIosWeb: 1,
-            gravity: ToastGravity.CENTER,
-            backgroundColor: Colors.green,
-            textColor: Colors.white);
-
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Home()));
-      } else {
-        Fluttertoast.showToast(
-            msg: "username atau password salah",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            backgroundColor: Colors.red,
-            textColor: Colors.white);
-      }
-    }
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -212,10 +271,6 @@ class _loginState extends State<login> {
                                     final isValidForm =
                                         _formKey.currentState!.validate();
                                     if (isValidForm) {
-                                      var sharedPref =
-                                          await SharedPreferences.getInstance();
-                                      sharedPref.setBool(
-                                          SplahScreenState.KEYLOGIN, true);
                                       _login();
                                     } else {
                                       return null;

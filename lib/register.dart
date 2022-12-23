@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:app_pron/home.dart';
 import 'package:app_pron/login.dart';
 import 'package:app_pron/pages_index/theme_helper.dart';
 import 'package:email_validator/email_validator.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:app_pron/url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -59,12 +59,12 @@ class _MyRegisterState extends State<MyRegister> {
 
   Future<void> _register() async {
     Uri url =
-        Uri.parse("http://192.168.203.52/project_mobile/user/register.php");
+        Uri.parse("http://${Url.URL_API}/project_mobile/user/register.php");
     var response = await http.post(url, body: {
       "username": user.text,
       "email": email.text,
       "password": pass.text,
-      "ho_hp": nohp.text,
+      "no_hp": nohp.text,
       "role": "customer",
     });
     var data = jsonDecode(response.body);

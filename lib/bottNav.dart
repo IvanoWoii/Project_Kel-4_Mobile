@@ -1,17 +1,56 @@
-import 'package:app_pron/page/mainPrint2.dart';
-import 'package:flutter/material.dart';
 import 'package:app_pron/page/dashboard.dart';
+import 'package:app_pron/page/kategori.dart';
+import 'package:app_pron/page/mainPrint2.dart';
 import 'package:app_pron/page/profile.dart';
 import 'package:app_pron/page/riwayat.dart';
-import 'package:app_pron/page/kategori.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Home extends StatefulWidget {
-  @override
-  State<Home> createState() => _HomeState();
+extension StringCasingExtension on String {
+  String toCapitalized() =>
+      length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+  String toTitleCase() => replaceAll(RegExp(' +'), ' ')
+      .split(' ')
+      .map((str) => str.toCapitalized())
+      .join(' ');
 }
 
-class _HomeState extends State<Home> {
+class kumNav extends StatefulWidget {
+  const kumNav({Key? key}) : super(key: key);
+  @override
+  State<kumNav> createState() => _BottomNavState();
+}
+
+class _BottomNavState extends State<kumNav> {
+  String id_user = "";
+  String username = "";
+  String email = "";
+  String password = "";
+  String no_hp = "";
+  String role = "";
+
+  int _selectedIndex = 0;
+
+  Future getkode() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      id_user = (prefs.getString('id_user') ?? "");
+      username = (prefs.getString('username') ?? "");
+      email = (prefs.getString('email') ?? "");
+      password = (prefs.getString('password') ?? "");
+      no_hp = (prefs.getString('no_hp') ?? "");
+      role = (prefs.getString('role') ?? "");
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getkode();
+  }
+
   int currentTab = 0;
   final List<Widget> screens = [Dashboard(), Riwayat(), Profile(), Kategori()];
   final PageStorageBucket bucket = PageStorageBucket();

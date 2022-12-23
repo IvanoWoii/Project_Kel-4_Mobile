@@ -1,6 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:app_pron/home.dart';
+import 'package:app_pron/bottNav.dart';
 import 'package:app_pron/pages_index/theme_helper.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,9 @@ class Pembyaran extends StatefulWidget {
 
 class _PembyaranState extends State<Pembyaran> {
   PlatformFile? pickedFile;
+  File? selectedFile;
+  String? imageName;
+  String? imageData;
 
   Future SelectedFile() async {
     final result = await FilePicker.platform.pickFiles();
@@ -24,6 +28,9 @@ class _PembyaranState extends State<Pembyaran> {
 
     setState(() {
       pickedFile = result.files.first;
+      selectedFile = File(pickedFile!.path!);
+      imageName = pickedFile!.path!.split('/').last;
+      imageData = base64Encode(selectedFile!.readAsBytesSync());
     });
   }
 
@@ -37,7 +44,7 @@ class _PembyaranState extends State<Pembyaran> {
         leading: GestureDetector(
           onTap: () {
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Home()));
+                context, MaterialPageRoute(builder: (context) => kumNav()));
           },
           child: Icon(
             Icons.arrow_back,
