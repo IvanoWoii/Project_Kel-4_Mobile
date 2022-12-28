@@ -1,18 +1,18 @@
-class riwayat {
+class DataRiwayat {
   String? tanggal;
   String? idTransaksi;
   String? idUser;
   String? totalHarga;
   String? status;
 
-  riwayat(
+  DataRiwayat(
       {this.tanggal,
       this.idTransaksi,
       this.idUser,
       this.totalHarga,
       this.status});
 
-  riwayat.fromJson(Map<String, dynamic> json) {
+  DataRiwayat.fromJson(Map<String, dynamic> json) {
     tanggal = json['tanggal'];
     idTransaksi = json['id_transaksi'];
     idUser = json['id_user'];

@@ -1,4 +1,4 @@
-import 'package:app_pron/pages_index/tabs.dart';
+import 'package:app_pron/pages_index/tabsKategori.dart';
 import 'package:flutter/material.dart';
 
 class Kategori extends StatefulWidget {
@@ -21,6 +21,7 @@ class _KategoriState extends State<Kategori> {
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.purple,
+          automaticallyImplyLeading: false,
         ),
         body: Column(
           children: [

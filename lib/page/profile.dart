@@ -39,6 +39,7 @@ class _ProfileState extends State<Profile> {
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
               onPressed: () {
@@ -130,7 +131,7 @@ class _ProfileState extends State<Profile> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: Image(
-                      image: AssetImage("img/logo bg.png"),
+                      image: AssetImage("img/logoBundar.png"),
                       fit: BoxFit.cover,
                     ),
                   ),

@@ -50,7 +50,8 @@ class _editProfileState extends State<editProfile> {
     final TextEditingController pass = TextEditingController(text: password);
     final TextEditingController noHpUser = TextEditingController(text: no_hp);
     Future<void> editProfile() async {
-      var url = Uri.parse("http://${Url.URL_API}/user/editProfile.php");
+      var url = Uri.parse(
+          "http://${Url.URL_API}/project_mobile/user/editProfile.php");
       var response = await http.post(url, body: {
         "username": user.text.toString(),
         "email": emailTxt.text.toString(),
@@ -58,10 +59,9 @@ class _editProfileState extends State<editProfile> {
         "no_hp": noHpUser.text.toString(),
         "id_user": id.text
       });
-      var dataAwal = jsonEncode(response.body);
-      var dataJadi = jsonDecode(dataAwal);
+      var data = jsonDecode(response.body);
       // print(dataJadi);
-      if (dataJadi == "gagal") {
+      if (data == "gagal") {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("data sudah ada")),
         );

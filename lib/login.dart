@@ -127,8 +127,8 @@ class _loginState extends State<login> {
           children: [
             Container(
               height: _headerHeight,
-              child: HeaderWidget(
-                  _headerHeight, true, Image.asset("logo no bg.png")),
+              child:
+                  HeaderWidget(_headerHeight, true, Image.asset("Group 4.png")),
             ),
             SafeArea(
               child: Container(
@@ -154,9 +154,7 @@ class _loginState extends State<login> {
                               Container(
                                 child: TextFormField(
                                   validator: (value) {
-                                    if (value!.isEmpty ||
-                                        !RegExp(r'^[a-z A-Z]+$')
-                                            .hasMatch(value)) {
+                                    if (value == null || value.isEmpty) {
                                       return "Masukan username yang benar";
                                     } else {
                                       return null;

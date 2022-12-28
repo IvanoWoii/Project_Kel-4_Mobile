@@ -106,7 +106,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                     bottom: 20.0,
                   ),
                   child: Image.asset(
-                    "img/logo no bg.png",
+                    "img/Group 4.png",
                     width: 230,
                   ),
                 ),

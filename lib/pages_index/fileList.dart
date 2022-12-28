@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
-import 'package:app_pron/page/pembayaran.dart';
+import 'package:app_pron/bottNav.dart';
 import 'package:app_pron/pages_index/dataPrint.dart';
 import 'package:app_pron/pages_index/theme_helper.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_pron/url.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FileList extends StatefulWidget {
   final List<PlatformFile> files;
@@ -25,6 +28,49 @@ class FileList extends StatefulWidget {
 class _FileListState extends State<FileList> {
   TextEditingController brpKali = TextEditingController();
   TextEditingController jumlahBrp = TextEditingController();
+  var fileUrl;
+  XFile? image;
+  List _images = [];
+  final ImagePicker picker = ImagePicker();
+
+  Future uploadBukti(ImageSource media) async {
+    var img = await picker.pickImage(source: media);
+    var uri = "http://${Url.URL_API}/project_mobile/transaksi/uploadBukti.php";
+    var request = http.MultipartRequest('POST', Uri.parse(uri));
+    if (img != null) {
+      var pic = await http.MultipartFile.fromPath("image", img.path);
+      request.files.add(pic);
+      await request.send().then((result) {
+        http.Response.fromStream(result).then((response) {
+          var message = jsonDecode(response.body);
+          final snackBar = SnackBar(content: Text(message['message']));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        });
+      }).catchError((e) {
+        print(e);
+      });
+    }
+  }
+
+  Future pilihFilePrint() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      PlatformFile file = result.files.first;
+
+      print(file.name);
+      print(file.path);
+      print(file.extension);
+      setState(() {
+        fileUrl = file.path;
+      });
+    } else {}
+  }
+
+  Future uploadPrint() async {
+    final uri = Uri.parse(
+        "http://${Url.URL_API}/project_mobile/transaksi/uploadPrint.php");
+    var request = http.MultipartRequest('POST', uri);
+  }
 
   final _formKey = GlobalKey<FormState>();
 
@@ -53,6 +99,15 @@ class _FileListState extends State<FileList> {
 
   List<dataPrint>? apiList;
 
+  String idUser = "";
+
+  Future getIdUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      idUser = (prefs.getString('id_user') ?? "");
+    });
+  }
+
   Future<void> getDataPrint() async {
     Uri url =
         Uri.parse("http://${Url.URL_API}/project_mobile/getDataBarang.php");
@@ -68,9 +123,10 @@ class _FileListState extends State<FileList> {
   void initState() {
     super.initState();
     getDataPrint();
+    getIdUser();
   }
 
-  Future<void> _uploadFile() async {
+  Future<void> _uploadAwal() async {
     Uri url = Uri.parse(
         "http://${Url.URL_API}/project_mobile/transaksi/uploadAwal.php");
     var response = await http.post(url, body: {
@@ -81,6 +137,7 @@ class _FileListState extends State<FileList> {
       "jumlah_kertas": jumlahBrp.text,
       "total_harga": "$hasilTotal",
       "status": "pending",
+      "id_user": idUser.toString()
     });
     var data = jsonDecode(response.body);
     if (data == "gagal") {
@@ -90,16 +147,14 @@ class _FileListState extends State<FileList> {
           gravity: ToastGravity.CENTER,
           backgroundColor: Colors.red,
           textColor: Colors.white);
-    } else
+    } else {
       Fluttertoast.showToast(
           msg: "berhasil",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           backgroundColor: Colors.green,
           textColor: Colors.white);
-
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Pembyaran()));
+    }
   }
 
   @override
@@ -290,58 +345,116 @@ class _FileListState extends State<FileList> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return SizedBox(
-                                      height: 200,
+                                      height: double.infinity,
                                       width: double.infinity,
                                       child: Container(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            SizedBox(
-                                              height: 30,
-                                            ),
-                                            Text(
-                                              "Total Anda Adalah :",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16),
-                                            ),
-                                            Text(
-                                              "$hasilTotal",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
-                                            ),
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                ElevatedButton(
-                                                  style: ButtonStyle(
-                                                      backgroundColor:
-                                                          MaterialStatePropertyAll<
-                                                                  Color>(
-                                                              Colors.green)),
-                                                  child: const Text("Lanjut"),
+                                        child: Center(
+                                          child: Column(
+                                            children: <Widget>[
+                                              SizedBox(
+                                                height: 30,
+                                              ),
+                                              Text(
+                                                "Total Anda Adalah :",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16),
+                                              ),
+                                              Text(
+                                                "$hasilTotal",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Text(
+                                                "Silahkan Bayar Terlebih Dahulu",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16)),
+                                              ),
+                                              Text(
+                                                "Gopay/Dana",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14)),
+                                              ),
+                                              Text(
+                                                "081216512283",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ),
+                                              Container(
+                                                constraints: BoxConstraints(
+                                                    maxWidth: 400),
+                                                padding: EdgeInsets.all(32),
+                                                alignment: Alignment.center,
+                                                child: ElevatedButton(
+                                                  child: Text(
+                                                      "Upload Bukti Pembayaran"),
                                                   onPressed: () {
-                                                    _uploadFile();
-                                                  },
-                                                ),
-                                                ElevatedButton(
-                                                  child: const Text("tutup"),
-                                                  onPressed: () {
+                                                    uploadBukti(
+                                                        ImageSource.gallery);
+                                                    _uploadAwal();
                                                     Navigator.pop(context);
                                                   },
                                                 ),
-                                              ],
-                                            ),
-                                          ],
+                                              ),
+                                              if (image != null)
+                                                Container(
+                                                  width: 150,
+                                                  height: 150,
+                                                  child: Center(
+                                                      child: Image.file(
+                                                    File(image!.path),
+                                                    width: double.infinity,
+                                                    height: double.infinity,
+                                                  )),
+                                                ),
+                                              SizedBox(height: 20),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  ElevatedButton(
+                                                    style: ButtonStyle(
+                                                        backgroundColor:
+                                                            MaterialStatePropertyAll<
+                                                                    Color>(
+                                                                Colors.green)),
+                                                    child: const Text("Lanjut"),
+                                                    onPressed: () {
+                                                      _uploadAwal();
+                                                      Navigator.pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      kumNav()));
+                                                    },
+                                                  ),
+                                                  ElevatedButton(
+                                                    child: const Text("tutup"),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     );
@@ -357,62 +470,115 @@ class _FileListState extends State<FileList> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return SizedBox(
-                                      height: 200,
+                                      height: double.infinity,
                                       width: double.infinity,
                                       child: Container(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            SizedBox(
-                                              height: 30,
-                                            ),
-                                            Text(
-                                              "Total Anda Adalah :",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16),
-                                            ),
-                                            Text(
-                                              "$hasilTotal",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
-                                            ),
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                ElevatedButton(
-                                                  style: ButtonStyle(
-                                                      backgroundColor:
-                                                          MaterialStatePropertyAll<
-                                                                  Color>(
-                                                              Colors.green)),
-                                                  child: const Text("Lanjut"),
+                                        child: Center(
+                                          child: Column(
+                                            children: <Widget>[
+                                              SizedBox(
+                                                height: 30,
+                                              ),
+                                              Text(
+                                                "Total Anda Adalah :",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16),
+                                              ),
+                                              Text(
+                                                "$hasilTotal",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Text(
+                                                "Silahkan Bayar Terlebih Dahulu",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16)),
+                                              ),
+                                              Text(
+                                                "Gopay/Dana",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14)),
+                                              ),
+                                              Text(
+                                                "081216512283",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ),
+                                              Container(
+                                                constraints: BoxConstraints(
+                                                    maxWidth: 400),
+                                                padding: EdgeInsets.all(32),
+                                                alignment: Alignment.center,
+                                                child: ElevatedButton(
+                                                  child: Text(
+                                                      "Upload Bukti Pembayaran"),
                                                   onPressed: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                Pembyaran()));
-                                                  },
-                                                ),
-                                                ElevatedButton(
-                                                  child: const Text("tutup"),
-                                                  onPressed: () {
+                                                    uploadBukti(
+                                                        ImageSource.gallery);
                                                     Navigator.pop(context);
                                                   },
                                                 ),
-                                              ],
-                                            ),
-                                          ],
+                                              ),
+                                              if (image != null)
+                                                Container(
+                                                  width: 150,
+                                                  height: 150,
+                                                  child: Center(
+                                                      child: Image.file(
+                                                    File(image!.path),
+                                                    width: double.infinity,
+                                                    height: double.infinity,
+                                                  )),
+                                                ),
+                                              SizedBox(height: 20),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  ElevatedButton(
+                                                    style: ButtonStyle(
+                                                        backgroundColor:
+                                                            MaterialStatePropertyAll<
+                                                                    Color>(
+                                                                Colors.green)),
+                                                    child: const Text("Lanjut"),
+                                                    onPressed: () {
+                                                      _uploadAwal();
+                                                      Navigator.pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      kumNav()));
+                                                    },
+                                                  ),
+                                                  ElevatedButton(
+                                                    child: const Text("tutup"),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     );
@@ -428,62 +594,115 @@ class _FileListState extends State<FileList> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return SizedBox(
-                                      height: 200,
+                                      height: double.infinity,
                                       width: double.infinity,
                                       child: Container(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            SizedBox(
-                                              height: 30,
-                                            ),
-                                            Text(
-                                              "Total Anda Adalah :",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16),
-                                            ),
-                                            Text(
-                                              "$hasilTotal",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
-                                            ),
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                ElevatedButton(
-                                                  style: ButtonStyle(
-                                                      backgroundColor:
-                                                          MaterialStatePropertyAll<
-                                                                  Color>(
-                                                              Colors.green)),
-                                                  child: const Text("Lanjut"),
+                                        child: Center(
+                                          child: Column(
+                                            children: <Widget>[
+                                              SizedBox(
+                                                height: 30,
+                                              ),
+                                              Text(
+                                                "Total Anda Adalah :",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16),
+                                              ),
+                                              Text(
+                                                "$hasilTotal",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Text(
+                                                "Silahkan Bayar Terlebih Dahulu",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16)),
+                                              ),
+                                              Text(
+                                                "Gopay/Dana",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14)),
+                                              ),
+                                              Text(
+                                                "081216512283",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ),
+                                              Container(
+                                                constraints: BoxConstraints(
+                                                    maxWidth: 400),
+                                                padding: EdgeInsets.all(32),
+                                                alignment: Alignment.center,
+                                                child: ElevatedButton(
+                                                  child: Text(
+                                                      "Upload Bukti Pembayaran"),
                                                   onPressed: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                Pembyaran()));
-                                                  },
-                                                ),
-                                                ElevatedButton(
-                                                  child: const Text("tutup"),
-                                                  onPressed: () {
+                                                    uploadBukti(
+                                                        ImageSource.gallery);
                                                     Navigator.pop(context);
                                                   },
                                                 ),
-                                              ],
-                                            ),
-                                          ],
+                                              ),
+                                              if (image != null)
+                                                Container(
+                                                  width: 150,
+                                                  height: 150,
+                                                  child: Center(
+                                                      child: Image.file(
+                                                    File(image!.path),
+                                                    width: double.infinity,
+                                                    height: double.infinity,
+                                                  )),
+                                                ),
+                                              SizedBox(height: 20),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  ElevatedButton(
+                                                    style: ButtonStyle(
+                                                        backgroundColor:
+                                                            MaterialStatePropertyAll<
+                                                                    Color>(
+                                                                Colors.green)),
+                                                    child: const Text("Lanjut"),
+                                                    onPressed: () {
+                                                      _uploadAwal();
+                                                      Navigator.pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      kumNav()));
+                                                    },
+                                                  ),
+                                                  ElevatedButton(
+                                                    child: const Text("tutup"),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     );
@@ -499,62 +718,115 @@ class _FileListState extends State<FileList> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return SizedBox(
-                                      height: 200,
+                                      height: double.infinity,
                                       width: double.infinity,
                                       child: Container(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            SizedBox(
-                                              height: 30,
-                                            ),
-                                            Text(
-                                              "Total Anda Adalah :",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16),
-                                            ),
-                                            Text(
-                                              "$hasilTotal",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
-                                            ),
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                ElevatedButton(
-                                                  style: ButtonStyle(
-                                                      backgroundColor:
-                                                          MaterialStatePropertyAll<
-                                                                  Color>(
-                                                              Colors.green)),
-                                                  child: const Text("Lanjut"),
+                                        child: Center(
+                                          child: Column(
+                                            children: <Widget>[
+                                              SizedBox(
+                                                height: 30,
+                                              ),
+                                              Text(
+                                                "Total Anda Adalah :",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16),
+                                              ),
+                                              Text(
+                                                "$hasilTotal",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Text(
+                                                "Silahkan Bayar Terlebih Dahulu",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16)),
+                                              ),
+                                              Text(
+                                                "Gopay/Dana",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14)),
+                                              ),
+                                              Text(
+                                                "081216512283",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ),
+                                              Container(
+                                                constraints: BoxConstraints(
+                                                    maxWidth: 400),
+                                                padding: EdgeInsets.all(32),
+                                                alignment: Alignment.center,
+                                                child: ElevatedButton(
+                                                  child: Text(
+                                                      "Upload Bukti Pembayaran"),
                                                   onPressed: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                Pembyaran()));
-                                                  },
-                                                ),
-                                                ElevatedButton(
-                                                  child: const Text("tutup"),
-                                                  onPressed: () {
+                                                    uploadBukti(
+                                                        ImageSource.gallery);
                                                     Navigator.pop(context);
                                                   },
                                                 ),
-                                              ],
-                                            ),
-                                          ],
+                                              ),
+                                              if (image != null)
+                                                Container(
+                                                  width: 150,
+                                                  height: 150,
+                                                  child: Center(
+                                                      child: Image.file(
+                                                    File(image!.path),
+                                                    width: double.infinity,
+                                                    height: double.infinity,
+                                                  )),
+                                                ),
+                                              SizedBox(height: 20),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  ElevatedButton(
+                                                    style: ButtonStyle(
+                                                        backgroundColor:
+                                                            MaterialStatePropertyAll<
+                                                                    Color>(
+                                                                Colors.green)),
+                                                    child: const Text("Lanjut"),
+                                                    onPressed: () {
+                                                      _uploadAwal();
+                                                      Navigator.pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      kumNav()));
+                                                    },
+                                                  ),
+                                                  ElevatedButton(
+                                                    child: const Text("tutup"),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     );
@@ -570,62 +842,115 @@ class _FileListState extends State<FileList> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return SizedBox(
-                                      height: 200,
+                                      height: double.infinity,
                                       width: double.infinity,
                                       child: Container(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            SizedBox(
-                                              height: 30,
-                                            ),
-                                            Text(
-                                              "Total Anda Adalah :",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16),
-                                            ),
-                                            Text(
-                                              "$hasilTotal",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
-                                            ),
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                ElevatedButton(
-                                                  style: ButtonStyle(
-                                                      backgroundColor:
-                                                          MaterialStatePropertyAll<
-                                                                  Color>(
-                                                              Colors.green)),
-                                                  child: const Text("Lanjut"),
+                                        child: Center(
+                                          child: Column(
+                                            children: <Widget>[
+                                              SizedBox(
+                                                height: 30,
+                                              ),
+                                              Text(
+                                                "Total Anda Adalah :",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16),
+                                              ),
+                                              Text(
+                                                "$hasilTotal",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Text(
+                                                "Silahkan Bayar Terlebih Dahulu",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16)),
+                                              ),
+                                              Text(
+                                                "Gopay/Dana",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 14)),
+                                              ),
+                                              Text(
+                                                "081216512283",
+                                                style: GoogleFonts.openSans(
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ),
+                                              Container(
+                                                constraints: BoxConstraints(
+                                                    maxWidth: 400),
+                                                padding: EdgeInsets.all(32),
+                                                alignment: Alignment.center,
+                                                child: ElevatedButton(
+                                                  child: Text(
+                                                      "Upload Bukti Pembayaran"),
                                                   onPressed: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                Pembyaran()));
-                                                  },
-                                                ),
-                                                ElevatedButton(
-                                                  child: const Text("tutup"),
-                                                  onPressed: () {
+                                                    uploadBukti(
+                                                        ImageSource.gallery);
                                                     Navigator.pop(context);
                                                   },
                                                 ),
-                                              ],
-                                            ),
-                                          ],
+                                              ),
+                                              if (image != null)
+                                                Container(
+                                                  width: 150,
+                                                  height: 150,
+                                                  child: Center(
+                                                      child: Image.file(
+                                                    File(image!.path),
+                                                    width: double.infinity,
+                                                    height: double.infinity,
+                                                  )),
+                                                ),
+                                              SizedBox(height: 20),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  ElevatedButton(
+                                                    style: ButtonStyle(
+                                                        backgroundColor:
+                                                            MaterialStatePropertyAll<
+                                                                    Color>(
+                                                                Colors.green)),
+                                                    child: const Text("Lanjut"),
+                                                    onPressed: () {
+                                                      _uploadAwal();
+                                                      Navigator.pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      kumNav()));
+                                                    },
+                                                  ),
+                                                  ElevatedButton(
+                                                    child: const Text("tutup"),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     );
