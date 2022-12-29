@@ -79,6 +79,12 @@ class _loginState extends State<login> {
         // Navigate to Home Screen
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => kumNav()));
+        Fluttertoast.showToast(
+            msg: "Berhasil Login",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            backgroundColor: Colors.green,
+            textColor: Colors.white);
       } else {
         setState(() {
           //hide progress indicator

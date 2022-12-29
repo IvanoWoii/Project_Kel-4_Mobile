@@ -7,28 +7,28 @@ class GridDashboard extends StatelessWidget {
       subtitle: "21 x 29,7cm",
       event: "Rp 500 per lembar (Non Warna)",
       event2: "Rp 1000 per lembar (Warna)",
-      img: "img/paper.png");
+      img: "img/paperBaru.png");
 
   Item item2 = new Item(
       title: "Kertas A3",
       subtitle: "29,7 x 42cm",
       event: "Rp 700 per lembar (Non Warna)",
       event2: "Rp 1400 per lembar (Warna)",
-      img: "img/paper.png");
+      img: "img/paperBaru.png");
 
   Item item3 = new Item(
       title: "Kertas Buffalo",
       subtitle: "21,5 x 33cm",
       event: "Rp 1000 per lembar (Non Warna)",
       event2: "Rp 1500 per lembar (Warna)",
-      img: "img/paper.png");
+      img: "img/paperBaru.png");
 
   Item item4 = new Item(
       title: "Kertas F4",
       subtitle: "21,5 x 33cm",
       event: "Rp 500 per lembar (Non Warna)",
       event2: "Rp 1000 per lembar (Warna)",
-      img: "img/paper.png");
+      img: "img/paperBaru.png");
   @override
   Widget build(BuildContext context) {
     List<Item> myList = [item1, item2, item3, item4];
@@ -42,12 +42,13 @@ class GridDashboard extends StatelessWidget {
           children: myList.map((data) {
             return Container(
               decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 3),
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 5.0,
+                        color: Colors.grey.withOpacity(0.4),
+                        spreadRadius: 7.0,
                         blurRadius: 7.0),
                   ]),
               child: Column(

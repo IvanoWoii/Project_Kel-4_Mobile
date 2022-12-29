@@ -53,7 +53,7 @@ class _DashboardState extends State<Dashboard> {
                           style: GoogleFonts.openSans(
                               textStyle: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize: 24,
                                   fontWeight: FontWeight.bold)),
                         ),
                         SizedBox(height: 4),
@@ -62,7 +62,7 @@ class _DashboardState extends State<Dashboard> {
                           style: GoogleFonts.openSans(
                               textStyle: TextStyle(
                                   color: Color.fromARGB(255, 161, 156, 168),
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w600)),
                         ),
                       ],

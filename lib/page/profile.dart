@@ -1,6 +1,9 @@
 import 'package:app_pron/login.dart';
 import 'package:app_pron/page/editProfile.dart';
+import 'package:app_pron/page/infoAplikasi.dart';
+import 'package:app_pron/page/mainPrint2.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -90,6 +93,12 @@ class _ProfileState extends State<Profile> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => login()));
+                                      Fluttertoast.showToast(
+                                          msg: "Berhasil Logout",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.CENTER,
+                                          backgroundColor: Colors.green,
+                                          textColor: Colors.white);
                                     },
                                     child: Text("iya",
                                         style: TextStyle(color: Colors.white)),
@@ -178,7 +187,8 @@ class _ProfileState extends State<Profile> {
                 SizedBox(height: 10),
                 ListTile(
                   onTap: () {
-                    print("tes ini pakah bisa");
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => MyPrint2()));
                   },
                   leading: Container(
                     width: 40,
@@ -188,12 +198,12 @@ class _ProfileState extends State<Profile> {
                       color: Colors.purple.withOpacity(0.1),
                     ),
                     child: Icon(
-                      Icons.dashboard,
+                      Icons.print_rounded,
                       color: Colors.black,
                     ),
                   ),
                   title: Text(
-                    "Dashboard",
+                    "PRON PRINT",
                     style: GoogleFonts.openSans(
                         textStyle: TextStyle(color: Colors.black)),
                   ),
@@ -214,7 +224,8 @@ class _ProfileState extends State<Profile> {
                 SizedBox(height: 10),
                 ListTile(
                   onTap: () {
-                    print("tes apakah ini bisa");
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => InfoApp()));
                   },
                   leading: Container(
                     width: 40,
@@ -224,12 +235,12 @@ class _ProfileState extends State<Profile> {
                       color: Colors.purple.withOpacity(0.1),
                     ),
                     child: Icon(
-                      Icons.dashboard,
+                      Icons.info_rounded,
                       color: Colors.black,
                     ),
                   ),
                   title: Text(
-                    "Riwayat",
+                    "Info Aplikasi",
                     style: GoogleFonts.openSans(
                         textStyle: TextStyle(color: Colors.black)),
                   ),
@@ -247,41 +258,6 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 Divider(),
-                SizedBox(height: 10),
-                ListTile(
-                  onTap: () {
-                    print("tes apakah ini bisa");
-                  },
-                  leading: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Colors.purple.withOpacity(0.1),
-                    ),
-                    child: Icon(
-                      Icons.dashboard,
-                      color: Colors.black,
-                    ),
-                  ),
-                  title: Text(
-                    "Kategori",
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(color: Colors.black)),
-                  ),
-                  trailing: Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Colors.grey.withOpacity(0.1),
-                    ),
-                    child: Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
