@@ -57,7 +57,7 @@ class _ProfileState extends State<Profile> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      right: 33.0, left: 33.0),
+                                      right: 20.0, left: 20.0),
                                   child: MaterialButton(
                                     padding: EdgeInsets.all(8.0),
                                     color: Colors.redAccent,
@@ -106,7 +106,7 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      right: 33.0, left: 33.0),
+                                      right: 20.0, left: 20.0),
                                   child: MaterialButton(
                                     padding: EdgeInsets.all(8.0),
                                     color: Colors.green,

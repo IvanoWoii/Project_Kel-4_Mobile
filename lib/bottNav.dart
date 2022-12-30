@@ -93,7 +93,7 @@ class _BottomNavState extends State<kumNav> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(padding: EdgeInsets.only(left: 10.0)),
+                  Padding(padding: EdgeInsets.only(left: 5.0)),
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
@@ -119,7 +119,7 @@ class _BottomNavState extends State<kumNav> {
                       ],
                     ),
                   ),
-                  Padding(padding: EdgeInsets.only(left: 1.0)),
+                  Padding(padding: EdgeInsets.only(right: 0.5)),
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {

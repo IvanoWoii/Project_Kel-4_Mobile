@@ -220,7 +220,7 @@ class _Tabs2State extends State<Tabs2> {
                                       textStyle: TextStyle(
                                           color: Colors.purple,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 13)),
+                                          fontSize: 10)),
                                 )
                               ],
                             ),

@@ -135,7 +135,7 @@ class _TabsPendingState extends State<TabsPending> {
                                     "Tanggal : ",
                                     style: GoogleFonts.openSans(
                                         textStyle: TextStyle(
-                                            color: Colors.black, fontSize: 12)),
+                                            color: Colors.black, fontSize: 10)),
                                   ),
                                   Text(
                                     "${lisPending![index].tanggal}",
@@ -143,7 +143,7 @@ class _TabsPendingState extends State<TabsPending> {
                                         textStyle: TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 12)),
+                                            fontSize: 10)),
                                   ),
                                 ],
                               ),
@@ -312,7 +312,7 @@ class _TabsOnProsesState extends State<TabsOnProses> {
                                     "Tanggal : ",
                                     style: GoogleFonts.openSans(
                                         textStyle: TextStyle(
-                                            color: Colors.black, fontSize: 12)),
+                                            color: Colors.black, fontSize: 10)),
                                   ),
                                   Text(
                                     "${lisPending![index].tanggal}",
@@ -320,7 +320,7 @@ class _TabsOnProsesState extends State<TabsOnProses> {
                                         textStyle: TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 12)),
+                                            fontSize: 10)),
                                   ),
                                 ],
                               ),
@@ -489,7 +489,7 @@ class _TabsSiapDiAmbilState extends State<TabsSiapDiAmbil> {
                                     "Tanggal : ",
                                     style: GoogleFonts.openSans(
                                         textStyle: TextStyle(
-                                            color: Colors.black, fontSize: 12)),
+                                            color: Colors.black, fontSize: 10)),
                                   ),
                                   Text(
                                     "${lisPending![index].tanggal}",
@@ -497,7 +497,7 @@ class _TabsSiapDiAmbilState extends State<TabsSiapDiAmbil> {
                                         textStyle: TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 12)),
+                                            fontSize: 10)),
                                   ),
                                 ],
                               ),
@@ -666,7 +666,7 @@ class _TabsSelesaiState extends State<TabsSelesai> {
                                     "Tanggal : ",
                                     style: GoogleFonts.openSans(
                                         textStyle: TextStyle(
-                                            color: Colors.black, fontSize: 12)),
+                                            color: Colors.black, fontSize: 10)),
                                   ),
                                   Text(
                                     "${lisPending![index].tanggal}",
@@ -674,7 +674,7 @@ class _TabsSelesaiState extends State<TabsSelesai> {
                                         textStyle: TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 12)),
+                                            fontSize: 10)),
                                   ),
                                 ],
                               ),

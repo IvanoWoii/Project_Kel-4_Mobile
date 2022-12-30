@@ -73,7 +73,7 @@ class _DashboardState extends State<Dashboard> {
             ],
           ),
           SizedBox(
-            height: 10,
+            height: 30,
             child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
