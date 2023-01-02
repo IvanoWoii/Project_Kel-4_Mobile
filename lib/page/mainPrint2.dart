@@ -176,8 +176,7 @@ class _MyPrint2State extends State<MyPrint2> {
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => kumNav()));
+            Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back),
         ),

@@ -77,7 +77,7 @@ class _loginState extends State<login> {
           msg['userInfo']['role'],
         );
         // Navigate to Home Screen
-        Navigator.push(
+        Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => kumNav()));
         Fluttertoast.showToast(
             msg: "Berhasil Login",

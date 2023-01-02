@@ -99,7 +99,7 @@ class _InfoAppState extends State<InfoApp> {
                         fontSize: 15)),
               ),
               Text(
-                "Aliva Risqi Mariska (Produk Owner)",
+                "Aliva Rizqi Mariska (Produk Owner)",
                 style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                         color: Colors.black,

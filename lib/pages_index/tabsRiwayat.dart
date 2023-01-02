@@ -48,7 +48,9 @@ class _TabsPendingState extends State<TabsPending> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+        body: RefreshIndicator(
+      onRefresh: getDataRiwayatPending,
+      child: Column(
         children: [
           SizedBox(
             height: 20,
@@ -180,7 +182,7 @@ class _TabsPendingState extends State<TabsPending> {
             ),
         ],
       ),
-    );
+    ));
   }
 }
 
