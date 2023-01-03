@@ -49,7 +49,7 @@ class _KategoriState extends State<Kategori> {
                   Tab(
                     icon: Icon(Icons.category_sharp, color: Colors.deepPurple),
                     child: Text(
-                      "Alat Tulis",
+                      "Alat Lain-Lain",
                       style: TextStyle(color: Colors.black),
                     ),
                   ),

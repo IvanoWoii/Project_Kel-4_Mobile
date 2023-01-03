@@ -86,7 +86,7 @@ class _Tabs1State extends State<Tabs1> {
                                       textStyle: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 14)),
+                                          fontSize: 12)),
                                 ),
                                 Text(
                                   "${dataListTulis![index].namaBarang.toString().toUpperCase()}",
@@ -94,7 +94,7 @@ class _Tabs1State extends State<Tabs1> {
                                       textStyle: TextStyle(
                                           color: Colors.purple,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 14)),
+                                          fontSize: 10)),
                                 )
                               ],
                             ),
@@ -267,8 +267,119 @@ class Tabs3 extends StatefulWidget {
 }
 
 class _Tabs3State extends State<Tabs3> {
+  List<dataBarangLainLain>? dataListLainLain;
+
+  Future<void> getDataBarangLainLain() async {
+    Uri url = Uri.parse(
+        "http://${Url.URL_API}/project_mobile/barang/getDataBarangLainLain.php");
+    var response = await http.get(url);
+    setState(() {
+      dataListLainLain = jsonDecode(response.body)
+          .map((item) => dataBarangLainLain.fromJson(item))
+          .toList()
+          .cast<dataBarangLainLain>();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getDataBarangLainLain();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Column(
+        children: [
+          if (dataListLainLain != null)
+            Expanded(
+              child: ListView.builder(
+                itemCount: dataListLainLain!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 12, right: 12, top: 20, bottom: 20),
+                        child: Container(
+                          width: double.infinity,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey[200],
+                            border: Border.all(
+                                color: Colors.grey.shade600,
+                                width: 1,
+                                style: BorderStyle.solid),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.blueGrey,
+                                spreadRadius: 0.8,
+                                blurRadius: 9,
+                                offset: const Offset(
+                                  5.0,
+                                  5.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                                child: Icon(
+                              Icons.wifi_channel_outlined,
+                              color: Colors.white,
+                            )),
+                            title: Row(
+                              children: [
+                                Text(
+                                  "Nama Barang : ",
+                                  style: GoogleFonts.openSans(
+                                      textStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12)),
+                                ),
+                                Text(
+                                  "${dataListLainLain![index].namaBarang.toString().toUpperCase()}",
+                                  style: GoogleFonts.openSans(
+                                      textStyle: TextStyle(
+                                          color: Colors.purple,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 10)),
+                                )
+                              ],
+                            ),
+                            subtitle: Row(
+                              children: [
+                                Text(
+                                  "Harga : ",
+                                  style: GoogleFonts.openSans(
+                                      textStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14)),
+                                ),
+                                Text(
+                                  "${dataListLainLain![index].harga}",
+                                  style: GoogleFonts.openSans(
+                                      textStyle: TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14)),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+        ],
+      ),
+    );
   }
 }
