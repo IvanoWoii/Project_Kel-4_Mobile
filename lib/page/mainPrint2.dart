@@ -12,6 +12,8 @@ import 'package:app_pron/url.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_pron/pages_index/fileList.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loading/indicator/ball_pulse_indicator.dart';
+import 'package:loading/loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyPrint2 extends StatefulWidget {
@@ -23,6 +25,7 @@ class MyPrint2 extends StatefulWidget {
 class _MyPrint2State extends State<MyPrint2> {
   TextEditingController brpKali = TextEditingController();
   TextEditingController jumlahBrp = TextEditingController();
+
   List<String> items = [
     "A4 Hitam Putih",
     "A4 Warna",
@@ -176,7 +179,8 @@ class _MyPrint2State extends State<MyPrint2> {
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {
-            Navigator.pop(context);
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => kumNav()));
           },
           child: Icon(Icons.arrow_back),
         ),
@@ -504,7 +508,7 @@ class _MyPrint2State extends State<MyPrint2> {
                                     MaterialStatePropertyAll<Color>(
                                         Colors.green)),
                             child: const Text("Lanjut"),
-                            onPressed: () {
+                            onPressed: () async {
                               if (urlBukti != null) {
                                 saveBukti();
                                 _uploadAwal();

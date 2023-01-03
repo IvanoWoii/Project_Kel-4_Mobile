@@ -22,10 +22,10 @@ class SplahScreenState extends State<SplahScreen> {
           Color.fromARGB(250, 155, 11, 203),
         ],
       ),
-      logo: Image.asset("img/logo no bg.png"),
+      logo: Image.asset("img/Group 4.png"),
       logoWidth: 150.0,
       title: Text(
-        "APP PRON",
+        "Selamat Datang Di APP PRON",
         style: TextStyle(
             fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
       ),

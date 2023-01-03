@@ -55,23 +55,6 @@ class _TabsPendingState extends State<TabsPending> {
           SizedBox(
             height: 20,
           ),
-          Center(
-            child: CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.purple,
-              child: IconButton(
-                splashRadius: 35,
-                icon: Icon(
-                  Icons.refresh,
-                  color: Colors.white,
-                  size: 30,
-                ),
-                onPressed: () {
-                  getDataRiwayatPending();
-                },
-              ),
-            ),
-          ),
           SizedBox(height: 25),
           if (lisPending != null)
             Expanded(
@@ -227,27 +210,12 @@ class _TabsOnProsesState extends State<TabsOnProses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+        body: RefreshIndicator(
+      onRefresh: getDataRiwayatSelesaiOnProses,
+      child: Column(
         children: [
           SizedBox(
             height: 20,
-          ),
-          Center(
-            child: CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.purple,
-              child: IconButton(
-                splashRadius: 35,
-                icon: Icon(
-                  Icons.refresh,
-                  color: Colors.white,
-                  size: 30,
-                ),
-                onPressed: () {
-                  getDataRiwayatSelesaiOnProses();
-                },
-              ),
-            ),
           ),
           SizedBox(height: 25),
           if (lisPending != null)
@@ -359,7 +327,7 @@ class _TabsOnProsesState extends State<TabsOnProses> {
             ),
         ],
       ),
-    );
+    ));
   }
 }
 
@@ -404,27 +372,12 @@ class _TabsSiapDiAmbilState extends State<TabsSiapDiAmbil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+        body: RefreshIndicator(
+      onRefresh: getDataRiwayatSelesaiSiapDiAmbil,
+      child: Column(
         children: [
           SizedBox(
             height: 20,
-          ),
-          Center(
-            child: CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.purple,
-              child: IconButton(
-                splashRadius: 35,
-                icon: Icon(
-                  Icons.refresh,
-                  color: Colors.white,
-                  size: 30,
-                ),
-                onPressed: () {
-                  getDataRiwayatSelesaiSiapDiAmbil();
-                },
-              ),
-            ),
           ),
           SizedBox(height: 25),
           if (lisPending != null)
@@ -536,7 +489,7 @@ class _TabsSiapDiAmbilState extends State<TabsSiapDiAmbil> {
             ),
         ],
       ),
-    );
+    ));
   }
 }
 
@@ -581,27 +534,12 @@ class _TabsSelesaiState extends State<TabsSelesai> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+        body: RefreshIndicator(
+      onRefresh: getDataRiwayatSelesai,
+      child: Column(
         children: [
           SizedBox(
             height: 20,
-          ),
-          Center(
-            child: CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.purple,
-              child: IconButton(
-                splashRadius: 35,
-                icon: Icon(
-                  Icons.refresh,
-                  color: Colors.white,
-                  size: 30,
-                ),
-                onPressed: () {
-                  getDataRiwayatSelesai();
-                },
-              ),
-            ),
           ),
           SizedBox(height: 25),
           if (lisPending != null)
@@ -713,6 +651,6 @@ class _TabsSelesaiState extends State<TabsSelesai> {
             ),
         ],
       ),
-    );
+    ));
   }
 }

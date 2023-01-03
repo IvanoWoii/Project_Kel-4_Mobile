@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "APP PRON",
       debugShowCheckedModeBanner: false,
-      home: isLoggedIn ? kumNav() : login(),
+      home: isLoggedIn ? kumNav() : SplahScreen(),
     );
   }
 }

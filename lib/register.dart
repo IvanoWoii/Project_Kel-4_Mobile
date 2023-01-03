@@ -304,10 +304,8 @@ class _MyRegisterState extends State<MyRegister> {
                           Container(
                             child: TextFormField(
                               validator: (value) {
-                                if (value!.isEmpty ||
-                                    !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$')
-                                        .hasMatch(value)) {
-                                  return "pastikan password sama";
+                                if (value != null && value.length < 8) {
+                                  return "Pastikan password sama";
                                 } else {
                                   return null;
                                 }
