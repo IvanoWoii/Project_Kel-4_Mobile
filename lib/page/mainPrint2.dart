@@ -12,8 +12,6 @@ import 'package:app_pron/url.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_pron/pages_index/fileList.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:loading/indicator/ball_pulse_indicator.dart';
-import 'package:loading/loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyPrint2 extends StatefulWidget {
