@@ -55,7 +55,12 @@ class _TabsPendingState extends State<TabsPending> {
           SizedBox(
             height: 20,
           ),
-          SizedBox(height: 25),
+          Container(
+            height: 5,
+            width: 25,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.purple),
+          ),
           if (lisPending != null)
             Expanded(
               child: ListView.builder(
@@ -217,7 +222,12 @@ class _TabsOnProsesState extends State<TabsOnProses> {
           SizedBox(
             height: 20,
           ),
-          SizedBox(height: 25),
+          Container(
+            height: 5,
+            width: 25,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.purple),
+          ),
           if (lisPending != null)
             Expanded(
               child: ListView.builder(
@@ -379,7 +389,12 @@ class _TabsSiapDiAmbilState extends State<TabsSiapDiAmbil> {
           SizedBox(
             height: 20,
           ),
-          SizedBox(height: 25),
+          Container(
+            height: 5,
+            width: 25,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.purple),
+          ),
           if (lisPending != null)
             Expanded(
               child: ListView.builder(
@@ -541,7 +556,12 @@ class _TabsSelesaiState extends State<TabsSelesai> {
           SizedBox(
             height: 20,
           ),
-          SizedBox(height: 25),
+          Container(
+            height: 5,
+            width: 25,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.purple),
+          ),
           if (lisPending != null)
             Expanded(
               child: ListView.builder(

@@ -18,7 +18,7 @@ class _RiwayatState extends State<Riwayat> {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              "Kategori",
+              "Riwayat",
               style: TextStyle(color: Colors.white),
             ),
             backgroundColor: Colors.purple,
