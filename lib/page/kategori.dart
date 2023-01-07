@@ -18,7 +18,7 @@ class _KategoriState extends State<Kategori> {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              "Kategori",
+              "Barang Etalase",
               style: TextStyle(color: Colors.white),
             ),
             backgroundColor: Colors.purple,

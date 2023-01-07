@@ -424,6 +424,53 @@ class _TabsSiapDiAmbilState extends State<TabsSiapDiAmbil> {
                               ],
                             ),
                             child: ListTile(
+                              onTap: (() async {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text("Konfirmasi Customer"),
+                                        content: Text(
+                                            "Apakah Barang Sudah Diterima Customer?"),
+                                        actions: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 20, left: 20),
+                                                child: MaterialButton(
+                                                  padding: EdgeInsets.all(8.0),
+                                                  color: Colors.redAccent,
+                                                  onPressed: (() {
+                                                    Navigator.pop(context);
+                                                  }),
+                                                  child: Text(
+                                                    "Tidak",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                              MaterialButton(
+                                                padding: EdgeInsets.all(8.0),
+                                                color: Colors.green,
+                                                onPressed: (() {
+                                                  print("test");
+                                                }),
+                                                child: Text(
+                                                  "Iya",
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      );
+                                    });
+                              }),
                               leading: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

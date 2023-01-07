@@ -138,8 +138,7 @@ class _MyRegisterState extends State<MyRegister> {
                           Container(
                             child: TextFormField(
                               validator: (value) {
-                                if (value!.isEmpty ||
-                                    !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                                if (value == null || value.isEmpty) {
                                   return "Username tidak boleh kosong";
                                 } else {
                                   return null;
@@ -188,8 +187,8 @@ class _MyRegisterState extends State<MyRegister> {
                           SizedBox(height: 30.0),
                           Container(
                             child: TextFormField(
-                              validator: (email) {
-                                email != null && !EmailValidator.validate(email)
+                              validator: (value) {
+                                value != null && !EmailValidator.validate(value)
                                     ? 'masukan email yang valid'
                                     : null;
                               },
